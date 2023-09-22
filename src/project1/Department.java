@@ -10,7 +10,7 @@ public enum Department {
     private final String fullName;
 
     Department(String fullName){
-        this.fullName =fullName;
+        this.fullName = fullName;
     }
 
     public String getFullName(){

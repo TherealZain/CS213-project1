@@ -5,9 +5,9 @@ package project1;
  */
 public enum Timeslot {
     MORNING(10, 30),
-    AFTERNOON(2, 00),
+    AFTERNOON(14, 00),
 
-    EVENING(6, 30);
+    EVENING(18, 30);
 
 
     private final int Hour;
@@ -16,5 +16,13 @@ public enum Timeslot {
     Timeslot(int Hour, int Minute) {
         this.Hour = Hour;
         this.Minute = Minute;
+    }
+
+    public int getHour() {
+        return this.Hour;
+    }
+
+    public int getMinute() {
+        return this.Minute;
     }
 }
