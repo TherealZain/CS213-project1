@@ -25,25 +25,33 @@ public class Event implements Comparable<Event> {
     @Override
     // needs to be worked on -nick
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        Event other = (Event) o;
+        if (o instanceof Event) {
+            Event other = (Event) o;
 
-        if (date != null ? !date.equals(other.date) : other.date != null) {
-            return false;
+            return (date != null ? date.equals(other.date) : other.date == null) &&
+                    (startTime != null ? startTime.equals(other.startTime) : other.startTime == null) &&
+                    (location != null ? location.equals(other.location) : other.location == null);
         }
-        if (startTime != null ? !startTime.equals(other.startTime) : other.startTime != null) {
-            return false;
-        }
-        if (location != null ? !location.equals(other.location) : other.location != null) {
-            return false;
-        }
+        return false;
+
     }
 
     @Override
-    // compare dates first, then timeslots if the dates are not the same
+    // compare dates first, then timeslots if the dates are the same
     public int compareTo(Event o) {
+        if(this.date.compareTo(o.date) > 0){
+            return 1;
+        }
+        if(this.date.compareTo(o.date) < 0){
+            return -1;
+        }
+        if (this.startTime.compareTo(o.startTime) > 0) {
+            return 1;
+        }
+        if (this.startTime.compareTo(o.startTime) < 0) {
+            return -1;
+        }
+
         return 0;
     }
 
