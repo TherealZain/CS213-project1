@@ -4,6 +4,11 @@ public class Contact {
     private Department department;
     private String email;
 
+    public Contact( Department department, String email){
+        this.department = department;
+        this.email = email;
+    }
+
     public String getDepartment(){
         return department.getFullName();
     }
@@ -20,25 +25,30 @@ public class Contact {
      * NEEDS TESTING
      */
     public boolean isValid(){
-        Department[] allDepartments = Department.values();
-        boolean departmentCheck = false;
-        boolean emailCheck = false;
+        return isValidDepartment() && isValidEmail();
 
-        for (Department dep : allDepartments) {
-            if (department.equals(dep)) {
-                departmentCheck = true;
-                break;
-            }
-        }
+    }
 
+    public boolean isValidEmail(){
         if (email.toLowerCase().endsWith("@rutgers.edu")) {
             String prefix = email.substring(0, email.indexOf("@"));
             if (prefix.equalsIgnoreCase(department.name())) {
-                emailCheck = true;
+                return true;
             }
         }
-
-        return departmentCheck && emailCheck;
-
+        return false;
     }
+
+    public boolean isValidDepartment(){
+        Department[] allDepartments = Department.values();
+
+        for (Department dep : allDepartments) {
+            if (department.equals(dep)) {
+                return true;
+
+            }
+        }
+        return false;
+    }
+
 }

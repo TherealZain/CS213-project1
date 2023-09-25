@@ -5,8 +5,10 @@ import java.util.StringTokenizer;
 
 public class EventOrganizer {
     private boolean isRunning;
+    private EventCalendar calendar;
 
     public EventOrganizer() {
+        this.calendar = new EventCalendar();
         isRunning = true;
         System.out.println("Event Organizer running....");
     }
@@ -18,15 +20,20 @@ public class EventOrganizer {
             String command = scanner.nextLine();
 
             StringTokenizer tokenizer = new StringTokenizer(command);
-
-            switch (command) {
-                case "Q" -> isRunning = false;
-                case "A" -> handleACommand(tokenizer);
-                case "R" -> handleRCommand(tokenizer);
-                case "P" -> handlePCommand(tokenizer);
-                case "PE" -> handlePECommand(tokenizer);
-                case "PC" -> handlePCCommand(tokenizer);
-                case "PD" -> handlePDCommand(tokenizer);
+            String firstToken = tokenizer.nextToken();
+            if (tokenizer.hasMoreTokens()) {
+                switch (firstToken) {
+                    case "Q" -> isRunning = false;
+                    case "A" -> handleACommand(tokenizer);
+                    case "R" -> handleRCommand(tokenizer);
+                    case "P" -> handlePCommand(tokenizer);
+                    case "PE" -> handlePECommand(tokenizer);
+                    case "PC" -> handlePCCommand(tokenizer);
+                    case "PD" -> handlePDCommand(tokenizer);
+                    default -> System.out.println(firstToken + " is an invalid command!");
+                }
+            } else {
+                System.out.println("Empty command received. Please enter a valid command.");
             }
         }
 
@@ -34,7 +41,19 @@ public class EventOrganizer {
         scanner.close();
     }
 
-    private void handleACommand(StringTokenizer tokenizer) {
+    /**
+     * TODO: still need to add these checks
+     * 2. An event date is not a future date.
+     * 3. An event date is more than 6 months away from today’s date.
+     * 8. Conflict of schedule - an event with the same date/timeslot/location is already on the calendar.
+     * @param tokenizer
+     * @return
+     */
+    private String handleACommand(StringTokenizer tokenizer) {
+        Date date = null;
+        Timeslot startTime = null;
+        Location location = null;
+        Contact contact = null;
         String stringDate = tokenizer.nextToken();
         String stringStartTime = tokenizer.nextToken();
         String stringLocation = tokenizer.nextToken();
@@ -42,12 +61,25 @@ public class EventOrganizer {
         String stringEmail = tokenizer.nextToken();
         int duration = Integer.parseInt(tokenizer.nextToken());
 
-        Date date = parseDate(stringDate);
-        Timeslot startTime = ;
-        Location location = new Location(stringLocation);
-        Contact contact = new Contact(stringDepartment, stringEmail);
+         date = parseDate(stringDate);
+        if(!(date.isValid())){
+            return stringDate + ": " + "Invalid calendar date!";
+        }
+        if(isValidTimeslot(stringStartTime)){
+            startTime = Timeslot.valueOf(stringStartTime);
+        }else {return "Invalid time slot!";}
+
+        if(isValidLocation(stringLocation)){
+            location = Location.valueOf(stringLocation);
+        }else {return "Invalid Location";}
+
+        if(isValidDepartment(stringDepartment) && isValidEmail(stringEmail)){
+            Department department = Department.valueOf(stringDepartment);
+            contact = new Contact(department, stringEmail);
+        } else {return "Invalid contact information";}
 
         Event event = new Event(date, startTime, location, contact, duration);
+        calendar.add(event);
     }
     private void handleRCommand(StringTokenizer tokenizer) {
     }
@@ -80,6 +112,64 @@ public class EventOrganizer {
     private Timeslot parseTimeslot(String stringTimeslot) {
 
     }
+    public static boolean isValidTimeslot(String timeslotString) {
+        try {
+            Timeslot.valueOf(timeslotString.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+    public static boolean isValidLocation(String locationString) {
+        try {
+            Location.valueOf(locationString.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+    public static boolean isValidDepartment(String departmentString) {
+        try {
+            Department.valueOf(departmentString.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+    public static boolean isValidEmail(String emailString) {
+        // Check if the email contains '@'
+        int atIndex = emailString.indexOf('@');
+        if (atIndex == -1) {
+            return false;
+        }
+
+        String username = emailString.substring(0, atIndex);
+        String domain = emailString.substring(atIndex + 1);
+
+        if (username.isEmpty() || domain.isEmpty()) {
+            return false;
+        }
+
+        if (!domain.equalsIgnoreCase("rutgers.edu")) {
+            return false;
+        }
+
+        for (Department d : Department.values()) {
+            if (username.equalsIgnoreCase(d.name())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean futureDateCheck(int year, int month, int day){
+
+    }
+
+
+
+
 
     public static void main(String[] args) {
         EventOrganizer organizer = new EventOrganizer();

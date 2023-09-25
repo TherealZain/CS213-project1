@@ -22,6 +22,13 @@ public class Event implements Comparable<Event> {
         this.duration = duration;
     }
 
+
+    public Location getLocation() {
+        return location;
+    }
+    public Contact getContact(){
+        return contact;
+    }
     @Override
     // needs to be worked on -nick
     public boolean equals(Object o) {
@@ -57,7 +64,6 @@ public class Event implements Comparable<Event> {
 
     /**
      * Returns information about the Event in format
-     * MAKE SURE TO CHANGE END TIME!!!!
      * @return string representing event
      */
     @Override
@@ -96,6 +102,9 @@ public class Event implements Comparable<Event> {
 
         return hourPart + ":" + minutePart + amOrPm;
     }
+
+
+
     public static void main(String[] args) {
         Timeslot testStart = Timeslot.MORNING;
         String testEnd = getEndTime(testStart, 150);
