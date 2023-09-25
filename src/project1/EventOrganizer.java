@@ -8,6 +8,9 @@ public class EventOrganizer {
     private boolean isRunning;
     private EventCalendar calendar;
 
+    private final int MONTH_STANDARDIZER = 1;
+    private final int MONTHS_IN_YEAR = 12;
+
     public EventOrganizer() {
         this.calendar = new EventCalendar();
         isRunning = true;
@@ -51,32 +54,28 @@ public class EventOrganizer {
      * @param tokenizer
      */
     private void handleACommand(StringTokenizer tokenizer) {
-        Date date = null;
+        Date date = parseAndValidateDate(tokenizer.nextToken());
+
         Timeslot startTime = null;
         Location location = null;
         Contact contact = null;
-        String stringDate = tokenizer.nextToken();
-        String stringStartTime = tokenizer.nextToken();
-        String stringLocation = tokenizer.nextToken();
-        String stringDepartment = tokenizer.nextToken();
-        String stringEmail = tokenizer.nextToken();
+        String startTimeString = tokenizer.nextToken();
+        String locationString = tokenizer.nextToken();
+        String departmentString = tokenizer.nextToken();
+        String emailString = tokenizer.nextToken();
         int duration = Integer.parseInt(tokenizer.nextToken());
 
-        date = parseDate(stringDate);
-        if(!(date.isValid())){
-            return;
-        }
-        if(isValidTimeslot(stringStartTime)){
-            startTime = Timeslot.valueOf(stringStartTime);
+        if(isValidTimeslot(startTimeString)){
+            startTime = Timeslot.valueOf(startTimeString);
         }else {return;}
 
-        if(isValidLocation(stringLocation)){
-            location = Location.valueOf(stringLocation);
+        if(isValidLocation(locationString)){
+            location = Location.valueOf(locationString);
         }else {return;}
 
-        if(isValidDepartment(stringDepartment) && isValidEmail(stringEmail)){
-            Department department = Department.valueOf(stringDepartment);
-            contact = new Contact(department, stringEmail);
+        if(isValidDepartment(departmentString) && isValidEmail(emailString)){
+            Department department = Department.valueOf(departmentString);
+            contact = new Contact(department, emailString);
         } else {return;}
 
         Event event = new Event(date, startTime, location, contact, duration);
@@ -97,7 +96,18 @@ public class EventOrganizer {
     private void handlePDCommand(StringTokenizer tokenizer) {
     }
 
-    // helper method to parse date
+    private Date parseAndValidateDate(String dateString) {
+        Date date = parseDate(dateString);
+        if(!(date.isValid())){
+            System.out.println(dateString + ": Invalid calendar date!");
+        }
+        if (!futureDateCheck(date)) {
+            System.out.println(dateString + ": Event date must be a future date!");
+        } else if (!sixMonthDateCheck(date)) {
+            System.out.println(dateString + ": Event date must be within 6 months!");
+        }
+        return date;
+    }
     private Date parseDate(String dateString) {
         String[] dateComponents = dateString.split("/");
         if (dateComponents.length == 3) {
@@ -108,12 +118,6 @@ public class EventOrganizer {
             return new Date(year, month, day);
         }
         return null;
-    }
-
-    private boolean dateChecks(Date date) {
-        if (date.getYear() < xx) {
-
-        }
     }
 
     public static boolean isValidTimeslot(String timeslotString) {
@@ -167,12 +171,45 @@ public class EventOrganizer {
         return false;
     }
 
-    public static boolean futureDateCheck(int year, int month, int day){
+    private boolean eventOnCalendar() {
 
     }
+    private boolean futureDateCheck(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH) + MONTH_STANDARDIZER;
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
+        if (date.getYear() > currentYear) {
+            return true;
+        } else if (date.getYear() == currentYear) {
+            if (date.getMonth() > currentMonth) {
+                return true;
+            } else if (date.getMonth() == currentMonth) {
+                if (date.getDay() > currentDay) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    /**
+     * Do we need to consider day difference,
+     * or just month and year?
+     *
+     * do 12 and 6 need to be changed from magic numbers?
+     */
+    private boolean sixMonthDateCheck(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH) + MONTH_STANDARDIZER;
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
+        int monthsDifference = (date.getYear() - currentYear) * MONTHS_IN_YEAR + (date.getMonth() - currentMonth);
+
+        return monthsDifference <= 6;
+    }
 
 
     public static void main(String[] args) {
