@@ -31,7 +31,6 @@ public class Date implements Comparable<Date>{
         this.year = year;
         this. month = month;
         this. day = day;
-
     }
 
     public int compareTo(Date d){

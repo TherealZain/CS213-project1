@@ -9,7 +9,6 @@ public enum Timeslot {
 
     EVENING(18, 30);
 
-
     private final int Hour;
     private final int Minute;
 
