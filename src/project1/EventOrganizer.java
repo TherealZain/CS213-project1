@@ -10,6 +10,9 @@ public class EventOrganizer {
 
     private final int MONTH_STANDARDIZER = 1;
     private final int MONTHS_IN_YEAR = 12;
+    private final int MAX_BOOKING_MONTHS_AHEAD = 6;
+    private static final int MIN_DURATION = 30;
+    private static final int MAX_DURATION = 120;
 
     public EventOrganizer() {
         this.calendar = new EventCalendar();
@@ -22,10 +25,11 @@ public class EventOrganizer {
 
         while (isRunning) {
             String command = scanner.nextLine();
+            if(command.isEmpty()){continue;}
 
             StringTokenizer tokenizer = new StringTokenizer(command);
             String firstToken = tokenizer.nextToken();
-            if (tokenizer.hasMoreTokens()) {
+
                 switch (firstToken) {
                     case "Q" -> isRunning = false;
                     case "A" -> handleACommand(tokenizer);
@@ -36,52 +40,59 @@ public class EventOrganizer {
                     case "PD" -> handlePDCommand(tokenizer);
                     default -> System.out.println(firstToken + " is an invalid command!");
                 }
-            } else {
-                System.out.println("Empty command received. Please enter a valid command.");
             }
-        }
 
         System.out.println("Event Organizer terminated");
         scanner.close();
     }
 
     /**
-     * TODO: still need to add these checks
-     * 2. An event date is not a future date.
-     * 3. An event date is more than 6 months away from today’s date.
-     * 8. Conflict of schedule - an event with the same date/timeslot/location is already on the calendar.
+     *
+     *.
      *
      * @param tokenizer
      */
     private void handleACommand(StringTokenizer tokenizer) {
-        Date date = parseAndValidateDate(tokenizer.nextToken());
-
-        Timeslot startTime = null;
-        Location location = null;
-        Contact contact = null;
+        String dateString =tokenizer.nextToken();
         String startTimeString = tokenizer.nextToken();
         String locationString = tokenizer.nextToken();
         String departmentString = tokenizer.nextToken();
         String emailString = tokenizer.nextToken();
         int duration = Integer.parseInt(tokenizer.nextToken());
-
-        if(isValidTimeslot(startTimeString)){
-            startTime = Timeslot.valueOf(startTimeString);
-        }else {return;}
-
-        if(isValidLocation(locationString)){
-            location = Location.valueOf(locationString);
-        }else {return;}
-
-        if(isValidDepartment(departmentString) && isValidEmail(emailString)){
-            Department department = Department.valueOf(departmentString);
-            contact = new Contact(department, emailString);
-        } else {return;}
-
+        Date date = parseDate(dateString);
+        if((!(validateAllParams(dateString, startTimeString,
+                locationString, departmentString,emailString, date, duration)))){
+            return;
+        }
+        Department department = Department.valueOf(departmentString.toUpperCase());
+        Contact contact = new Contact(department, emailString);
+        Timeslot startTime = Timeslot.valueOf(startTimeString.toUpperCase());
+        Location location = Location.valueOf(locationString.toUpperCase());
         Event event = new Event(date, startTime, location, contact, duration);
+       if(!(eventOnCalendar(event))){return;}
         calendar.add(event);
+       System.out.println("Event added to the calendar.");
     }
     private void handleRCommand(StringTokenizer tokenizer) {
+        String dateString =tokenizer.nextToken();
+        String startTimeString = tokenizer.nextToken();
+        String locationString = tokenizer.nextToken();
+        String departmentString = tokenizer.nextToken();
+        String emailString = tokenizer.nextToken();
+        int duration = Integer.parseInt(tokenizer.nextToken());
+        Date date = parseDate(dateString);
+        if((!(validateAllParams(dateString, startTimeString,
+                locationString, departmentString,emailString, date, duration)))){
+            return;
+        }
+        Department department = Department.valueOf(departmentString.toUpperCase());
+        Contact contact = new Contact(department, emailString);
+        Timeslot startTime = Timeslot.valueOf(startTimeString.toUpperCase());
+        Location location = Location.valueOf(locationString.toUpperCase());
+        Event event = new Event(date, startTime, location, contact, duration);
+        if((eventOnCalendar(event))){
+            calendar.remove(event);
+        }
     }
 
     private void handlePCommand(StringTokenizer tokenizer) {
@@ -96,17 +107,19 @@ public class EventOrganizer {
     private void handlePDCommand(StringTokenizer tokenizer) {
     }
 
-    private Date parseAndValidateDate(String dateString) {
-        Date date = parseDate(dateString);
+    private boolean validateDate(Date date, String dateString) {
         if(!(date.isValid())){
             System.out.println(dateString + ": Invalid calendar date!");
+            return false;
         }
         if (!futureDateCheck(date)) {
             System.out.println(dateString + ": Event date must be a future date!");
+            return false;
         } else if (!sixMonthDateCheck(date)) {
             System.out.println(dateString + ": Event date must be within 6 months!");
+            return false;
         }
-        return date;
+        return true;
     }
     private Date parseDate(String dateString) {
         String[] dateComponents = dateString.split("/");
@@ -125,6 +138,7 @@ public class EventOrganizer {
             Timeslot.valueOf(timeslotString.toUpperCase());
             return true;
         } catch (IllegalArgumentException e) {
+            System.out.println("Invalid time slot!");
             return false;
         }
     }
@@ -133,6 +147,7 @@ public class EventOrganizer {
             Location.valueOf(locationString.toUpperCase());
             return true;
         } catch (IllegalArgumentException e) {
+            System.out.println("Invalid location!");
             return false;
         }
     }
@@ -145,12 +160,10 @@ public class EventOrganizer {
         }
     }
     public static boolean isValidEmail(String emailString) {
-        // Check if the email contains '@'
         int atIndex = emailString.indexOf('@');
         if (atIndex == -1) {
             return false;
         }
-
         String username = emailString.substring(0, atIndex);
         String domain = emailString.substring(atIndex + 1);
 
@@ -171,9 +184,48 @@ public class EventOrganizer {
         return false;
     }
 
-    private boolean eventOnCalendar() {
+    private boolean isValidContact(String departmentString, String emailString) {
+        if (isValidDepartment(departmentString) && isValidEmail(emailString)) {
+            return true;
+        }
+        System.out.println("Invalid contact information!");
+        return false;
+    }
+
+    private boolean isValidDuration(int duration){
+
+            if(duration < MIN_DURATION || duration > MAX_DURATION){
+                System.out.println("Event duration must be at least " +
+                        "30 minutes and at most 120 minutes");
+                return false;
+            }
+            return true;
+
+        }
+
+
+
+    private boolean validateAllParams(String dateString, String startTimeString,
+    String locationString, String departmentString, String emailString, Date date, int duration){
+        if(!(validateDate(date,dateString))){return false;}
+        if(!(isValidTimeslot(startTimeString))){return false;}
+        if(!(isValidLocation(locationString))){return false;}
+        if(!(isValidContact(departmentString, emailString))){return false;}
+        if(!(isValidDuration(duration))){return false;}
+
+        return true;
 
     }
+
+
+    private boolean eventOnCalendar(Event event) {
+        if(calendar.contains(event)){
+            System.out.println("The event is already on the calendar.");
+            return false;
+        }
+        return true;
+    }
+
     private boolean futureDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
@@ -194,21 +246,18 @@ public class EventOrganizer {
         return false;
     }
 
-    /**
-     * Do we need to consider day difference,
-     * or just month and year?
-     *
-     * do 12 and 6 need to be changed from magic numbers?
-     */
+
+
     private boolean sixMonthDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH) + MONTH_STANDARDIZER;
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        int monthsDifference = (date.getYear() - currentYear) * MONTHS_IN_YEAR + (date.getMonth() - currentMonth);
+        int monthsDifference = (date.getYear() - currentYear) * MONTHS_IN_YEAR +
+                (date.getMonth() - currentMonth);
 
-        return monthsDifference <= 6;
+        return monthsDifference <= MAX_BOOKING_MONTHS_AHEAD;
     }
 
 
