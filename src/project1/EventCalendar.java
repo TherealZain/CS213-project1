@@ -107,6 +107,7 @@ public class EventCalendar {
                 events[currentMinIndex] = temp;
             }
         }
+    }
 
         private void selectionSortDepartment(){
             for(int i = 0; i< numEvents-1; i++){
