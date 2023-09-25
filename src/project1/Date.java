@@ -33,6 +33,10 @@ public class Date implements Comparable<Date>{
         this. day = day;
     }
 
+    public int getYear() {
+        return this.year;
+    }
+
     public int compareTo(Date d){
         // Compare years
         if (this.year > d.year) {

@@ -2,6 +2,7 @@ package project1;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.Calendar;
 
 public class EventOrganizer {
     private boolean isRunning;
@@ -46,10 +47,10 @@ public class EventOrganizer {
      * 2. An event date is not a future date.
      * 3. An event date is more than 6 months away from today’s date.
      * 8. Conflict of schedule - an event with the same date/timeslot/location is already on the calendar.
+     *
      * @param tokenizer
-     * @return
      */
-    private String handleACommand(StringTokenizer tokenizer) {
+    private void handleACommand(StringTokenizer tokenizer) {
         Date date = null;
         Timeslot startTime = null;
         Location location = null;
@@ -61,22 +62,22 @@ public class EventOrganizer {
         String stringEmail = tokenizer.nextToken();
         int duration = Integer.parseInt(tokenizer.nextToken());
 
-         date = parseDate(stringDate);
+        date = parseDate(stringDate);
         if(!(date.isValid())){
-            return stringDate + ": " + "Invalid calendar date!";
+            return;
         }
         if(isValidTimeslot(stringStartTime)){
             startTime = Timeslot.valueOf(stringStartTime);
-        }else {return "Invalid time slot!";}
+        }else {return;}
 
         if(isValidLocation(stringLocation)){
             location = Location.valueOf(stringLocation);
-        }else {return "Invalid Location";}
+        }else {return;}
 
         if(isValidDepartment(stringDepartment) && isValidEmail(stringEmail)){
             Department department = Department.valueOf(stringDepartment);
             contact = new Contact(department, stringEmail);
-        } else {return "Invalid contact information";}
+        } else {return;}
 
         Event event = new Event(date, startTime, location, contact, duration);
         calendar.add(event);
@@ -109,9 +110,12 @@ public class EventOrganizer {
         return null;
     }
 
-    private Timeslot parseTimeslot(String stringTimeslot) {
+    private boolean dateChecks(Date date) {
+        if (date.getYear() < xx) {
 
+        }
     }
+
     public static boolean isValidTimeslot(String timeslotString) {
         try {
             Timeslot.valueOf(timeslotString.toUpperCase());

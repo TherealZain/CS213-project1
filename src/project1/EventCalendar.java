@@ -62,7 +62,6 @@ public class EventCalendar {
     }
 
     private void selectionSortDate() {
-
         for (int i = 0; i < numEvents - 1; i++) {
             int currentMinIndex = i;
             for (int j = i + 1; j < numEvents; j++) {
@@ -109,45 +108,46 @@ public class EventCalendar {
         }
     }
 
-        private void selectionSortDepartment(){
-            for(int i = 0; i< numEvents-1; i++){
-                int currentMinIndex = i;
-                for(int j = i+1; j< numEvents; j++){
-                    String deptA = events[currentMinIndex].getContact().getDepartment();
-                    String deptB = events[j].getContact().getDepartment();
+    private void selectionSortDepartment(){
+        for(int i = 0; i< numEvents-1; i++){
+            int currentMinIndex = i;
+            for(int j = i+1; j< numEvents; j++){
+                String deptA = events[currentMinIndex].getContact().getDepartment();
+                String deptB = events[j].getContact().getDepartment();
 
-                    int deptComparison = deptA.compareTo(deptB);
-                    if(deptComparison > 0){
-                        currentMinIndex = j;
-                    }
-                }
-                if (currentMinIndex != i) {
-                    Event temp = events[i];
-                    events[i] = events[currentMinIndex];
-                    events[currentMinIndex] = temp;
+                int deptComparison = deptA.compareTo(deptB);
+                if(deptComparison > 0){
+                    currentMinIndex = j;
                 }
             }
-        }
-
-
-        public void printByDate() { //ordered by date and timeslot
-            selectionSortDate();
-            for (int i = 0; i < numEvents; i++) {
-                System.out.println(events[i].toString());
-            }
-        }
-        public void printByCampus() { //ordered by campus and building/room
-            selectionSortLocation();
-            for (int i = 0; i < numEvents; i++) {
-                System.out.println(events[i].toString());
-            }
-
-        }
-        public void printByDepartment () { //ordered by department
-            selectionSortDepartment();
-            for (int i = 0; i < numEvents; i++) {
-                System.out.println(events[i].toString());
+            if (currentMinIndex != i) {
+                Event temp = events[i];
+                events[i] = events[currentMinIndex];
+                events[currentMinIndex] = temp;
             }
         }
     }
+
+    public void printByDate() { //ordered by date and timeslot
+        selectionSortDate();
+        for (int i = 0; i < numEvents; i++) {
+            System.out.println(events[i].toString());
+        }
+    }
+
+    public void printByCampus() { //ordered by campus and building/room
+        selectionSortLocation();
+        for (int i = 0; i < numEvents; i++) {
+            System.out.println(events[i].toString());
+        }
+
+    }
+
+    public void printByDepartment () { //ordered by department
+        selectionSortDepartment();
+        for (int i = 0; i < numEvents; i++) {
+            System.out.println(events[i].toString());
+        }
+    }
+
 }

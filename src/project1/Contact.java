@@ -45,7 +45,6 @@ public class Contact {
         for (Department dep : allDepartments) {
             if (department.equals(dep)) {
                 return true;
-
             }
         }
         return false;
