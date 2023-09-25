@@ -3,13 +3,10 @@ package project1;
 public class EventCalendar {
     private Event[] events; //the array holding the list of events
     private int numEvents; //current number of events in the array
-    private static final int INITIAL_CAPACITY = 4;
-    private static final int GROWTH_INCREMENT = 4;
-    private static final int NOT_FOUND = -1;
 
     // constructor
     public EventCalendar() {
-        events = new Event[INITIAL_CAPACITY];
+        events = new Event[Constants.INITIAL_CAPACITY];
         numEvents = 0;
     }
 
@@ -19,49 +16,46 @@ public class EventCalendar {
                 return i;
             }
         }
-        return NOT_FOUND;
+        return Constants.NOT_FOUND;
     }
 
     private void grow() { //increase the capacity by 4
-        Event[] newEvents = new Event[events.length + GROWTH_INCREMENT];
+        Event[] newEvents = new Event[events.length + Constants.GROWTH_INCREMENT];
         for (int i = 0; i < numEvents; i++) {
             newEvents[i] = events[i];
         }
         events = newEvents;
     }
 
-    public boolean add(Event event) {
+    public void add(Event event) {
         if (numEvents == events.length) {
             grow();
         }
         events[numEvents++] = event;
-        return true;
     }
 
-    public boolean remove(Event event) {
+    public void remove(Event event) {
         int removeIndex = find(event);
-        if (removeIndex != NOT_FOUND) {
+        if (removeIndex != Constants.NOT_FOUND) {
             for (int i = removeIndex; i < numEvents - 1; i++) {
                 events[i] = events[i + 1];
             }
             numEvents--;
             events[numEvents] = null;
-            return true;
         }
-        return false;
     }
 
     public boolean contains(Event event) {
-        return find(event) != NOT_FOUND;
+        return find(event) != Constants.NOT_FOUND;
     }
 
     public void print() { //print the array as is
         for (int i = 0; i < numEvents; i++) {
-            System.out.println(events[i]);
+            System.out.println(events[i].toString());
         }
     }
 
-    private void selectionSortDate() {
+    private void selectionSortDateAndTimeslot() {
         for (int i = 0; i < numEvents - 1; i++) {
             int currentMinIndex = i;
             for (int j = i + 1; j < numEvents; j++) {
@@ -128,8 +122,8 @@ public class EventCalendar {
         }
     }
 
-    public void printByDate() { //ordered by date and timeslot
-        selectionSortDate();
+    public void printByDateAndTimeslot() { //ordered by date and timeslot
+        selectionSortDateAndTimeslot();
         for (int i = 0; i < numEvents; i++) {
             System.out.println(events[i].toString());
         }
