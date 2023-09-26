@@ -40,6 +40,11 @@ public class Date implements Comparable<Date>{
     public int getDay() { return this.day; }
 
 
+    public String dateString(){
+        return month + "/" + day + "/" + year;
+    }
+
+
     public int compareTo(Date d){
         // Compare years
         if (this.year > d.year) {
@@ -109,6 +114,52 @@ public class Date implements Comparable<Date>{
             return false;
         }
     }
+
+    public static void main(String[] args){
+        testDaysInFeb_NonLeap();
+        testDaysInFeb_Leap();
+        testMonth_OutOfRange();
+        testDayInShortMonth_OutOfRange();
+    }
+    /** Test case #1 */
+    private static void testDaysInFeb_NonLeap(){
+        Date date = new Date(2010, 2, 29);
+        boolean expectedOutput = false;
+        boolean actualOutput= date.isValid();
+        System.out.println("Test case #1: # of days in Feb. in a non leap year is 28");
+        testResult(date, expectedOutput, actualOutput);
+    }
+    /** Test case #2 */
+    private static void testDaysInFeb_Leap(){
+        Date date = new Date(2012, 2, 29);
+        boolean expectedOutput = true;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case #2: # of days in Feb. in a leap year is 29");
+        testResult(date, expectedOutput, actualOutput);
+    }
+
+    private static void testMonth_OutOfRange(){
+        Date date = new Date(2012, 14, 29);
+        boolean expectedOutput = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case #3: # of months in a year is 12");
+        testResult(date, expectedOutput, actualOutput);
+    }
+
+    private static void testDayInShortMonth_OutOfRange(){
+        Date date = new Date(2012, 4, 31);
+        boolean expectedOutput = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case #4: # of days in short month is 30");
+        testResult(date, expectedOutput, actualOutput);
+    }
+
+    private static void testResult(Date date, boolean expectedOutput, boolean actualOutput){
+        System.out.println("Date: " + date.dateString());
+        System.out.println("Expected Output: " + expectedOutput);
+        System.out.println("Actual Output: " + actualOutput);
+    }
+
 
 
 }

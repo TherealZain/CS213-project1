@@ -143,5 +143,8 @@ public class EventCalendar {
             System.out.println(events[i].toString());
         }
     }
+    public boolean isEmpty() {
+        return numEvents == 0;
+    }
 
 }

@@ -3,7 +3,7 @@ package project1;
 /**
  * Creates and Represents an event
  * includes information such as date, starttime, location, contact and duration
- * @author ZainZulfiqar
+ * @author Zain Zulfiqar
  * @author Nicholas Yim
  *
  */
@@ -30,7 +30,6 @@ public class Event implements Comparable<Event> {
         return contact;
     }
     @Override
-    // needs to be worked on -nick
     public boolean equals(Object o) {
         if (o instanceof Event) {
             Event other = (Event) o;
@@ -70,11 +69,11 @@ public class Event implements Comparable<Event> {
     public String toString(){
         String endTime = getEndTime(this.startTime, this.duration);
 
-        return "[Event Date: " + date + "]" + "[Start: " + startTime + "]"
-                + "[End: " + endTime + "] "+ "@" + location.name() + "("
-                + location.getRoomNumber() + "," + location.getCampus()
-                + "[Contact: " + contact.getDepartment() + ","
-                + contact.getEmail() +"]";
+        return "[Event Date: " + date.dateString() + "]" + "[Start: " + startTime.getHour() +":"
+                + startTime.getMinute() + "]" + "[End: " + endTime + "] "
+                + "@" + location.name() + "(" + location.getRoomNumber() +
+                "," + location.getCampus() + "[Contact: " + contact.getDepartment()
+                + "," + contact.getEmail() +"]";
     }
 
     // needs testing -nick
@@ -83,7 +82,7 @@ public class Event implements Comparable<Event> {
         int minutes = duration % 60;
 
         int endHour = startTime.getHour() + hours;
-        int endMinute = startTime.getMinute() + minutes;
+        int endMinute = Integer.parseInt(startTime.getMinute()) + minutes;
 
         if (endMinute >= 60) {
             endHour += 1;
@@ -106,9 +105,64 @@ public class Event implements Comparable<Event> {
 
 
     public static void main(String[] args) {
-        Timeslot testStart = Timeslot.MORNING;
-        String testEnd = getEndTime(testStart, 150);
+        testDateTimeLocation_same();
+        testDateTimeLocation_differentDate();
+        testDateTimeLocation_differentTime();
 
-        System.out.println("End Time: " + testEnd);
+    }
+    /** Test Case #1 */
+    private static void testDateTimeLocation_same(){
+        Date date = new Date(2023, 5, 21);
+        Timeslot time = Timeslot.AFTERNOON;
+        Location loc = Location.HLL114;
+        Contact contact1 = new Contact(Department.CS, "cs@rutgers.edu");
+        Contact contact2 = new Contact(Department.MATH, "math@rutgers.edu");
+        int duration = 30;
+        Event event1 = new Event(date, time, loc, contact1, duration);
+        Event event2 = new Event(date, time, loc, contact2, duration);
+        System.out.println("Test case #1: Events with same date, time and location should be equal");
+        boolean expectedOutput = true;
+        boolean actualOutput = event1.equals(event2);
+        testResult(event1, event2, expectedOutput, actualOutput);
+    }
+    /** Test Case #2 */
+    private static void testDateTimeLocation_differentDate(){
+        Date date1 = new Date(2023, 5, 21);
+        Date date2 = new Date(2023, 6, 21);
+        Timeslot time = Timeslot.AFTERNOON;
+        Location loc = Location.HLL114;
+        Contact contact1 = new Contact(Department.CS, "cs@rutgers.edu");
+        Contact contact2 = new Contact(Department.MATH, "math@rutgers.edu");
+        int duration = 30;
+        System.out.println("Test case #2: events with different date should not be equal");
+        Event event1 = new Event(date1, time, loc, contact1, duration);
+        Event event2 = new Event(date2, time, loc, contact2, duration);
+        boolean expectedOutput = false;
+        boolean actualOutput = event1.equals(event2);
+        testResult(event1, event2, expectedOutput, actualOutput);
+    }
+
+    /** Test Case #3 */
+    private static void testDateTimeLocation_differentTime(){
+        Date date = new Date(2023, 5, 21);
+        Timeslot time1 = Timeslot.AFTERNOON;
+        Timeslot time2 = Timeslot.MORNING;
+        Location loc = Location.HLL114;
+        Contact contact1 = new Contact(Department.CS, "cs@rutgers.edu");
+        Contact contact2 = new Contact(Department.MATH, "math@rutgers.edu");
+        int duration = 30;
+        Event event1 = new Event(date, time1, loc, contact1, duration);
+        Event event2 = new Event(date, time2, loc, contact2, duration);
+        System.out.println("Test case #1: Events with different timeslot should not be equal");
+        boolean expectedOutput = false;
+        boolean actualOutput = event1.equals(event2);
+        testResult(event1, event2, expectedOutput, actualOutput);
+    }
+    private static void testResult(Event event1, Event event2,
+                                      boolean expectedOutput, boolean actualOutput){
+        System.out.println("Event 1: " + event1.toString());
+        System.out.println("Event 2: " + event2.toString());
+        System.out.println("Expected Output: " + expectedOutput);
+        System.out.println("Actual Output: " + actualOutput);
     }
 }

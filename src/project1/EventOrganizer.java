@@ -23,7 +23,6 @@ public class EventOrganizer {
 
             StringTokenizer tokenizer = new StringTokenizer(command);
             String firstToken = tokenizer.nextToken();
-
                 switch (firstToken) {
                     case "Q" -> isRunning = false;
                     case "A" -> handleACommand(tokenizer);
@@ -34,6 +33,7 @@ public class EventOrganizer {
                     case "PD" -> handlePDCommand(tokenizer);
                     default -> System.out.println(firstToken + " is an invalid command!");
                 }
+
             }
 
         System.out.println("Event Organizer terminated");
@@ -41,9 +41,10 @@ public class EventOrganizer {
     }
 
     private void handleACommand(StringTokenizer tokenizer) {
+        System.out.println();
         Event event = parseAndCreateEvent(tokenizer);
 
-        if (!(eventOnCalendar(event))) {
+        if (!(eventOnCalendar(event)) || event == null) {
             return;
         }
         calendar.add(event);
@@ -51,7 +52,17 @@ public class EventOrganizer {
     }
 
     private void handleRCommand(StringTokenizer tokenizer) {
-        Event event = parseAndCreateEvent(tokenizer);
+        System.out.println();
+        String dateString = tokenizer.nextToken();
+        String startTimeString = tokenizer.nextToken();
+        String locationString = tokenizer.nextToken();
+        Date date = parseDate(dateString);
+        if(!(validateDate(date,dateString))){return;}
+        if(!(isValidTimeslot(startTimeString))){return;}
+        if(!(isValidLocation(locationString))){return;}
+        Timeslot startTime = Timeslot.valueOf(startTimeString.toUpperCase());
+        Location location = Location.valueOf(locationString.toUpperCase());
+        Event event = new Event(date, startTime, location, null, 0);
 
         if (!(eventOnCalendar(event))) {
             System.out.println("Cannot remove; event is not in the calendar!");
@@ -61,18 +72,35 @@ public class EventOrganizer {
     }
 
     private void handlePCommand(StringTokenizer tokenizer) {
+
+        if(calendar.isEmpty()){
+            System.out.println("Event calendar is empty!");
+        return;
+        }
         calendar.print();
     }
 
     private void handlePECommand(StringTokenizer tokenizer) {
+        if(calendar.isEmpty()){
+            System.out.println("Event calendar is empty!");
+            return;
+        }
         calendar.printByDateAndTimeslot();
     }
 
     private void handlePCCommand(StringTokenizer tokenizer) {
+        if(calendar.isEmpty()){
+            System.out.println("Event calendar is empty!");
+            return;
+        }
         calendar.printByCampus();
     }
 
     private void handlePDCommand(StringTokenizer tokenizer) {
+        if(calendar.isEmpty()){
+            System.out.println("Event calendar is empty!");
+            return;
+        }
         calendar.printByDepartment();
     }
 
@@ -196,11 +224,13 @@ public class EventOrganizer {
         return true;
     }
 
+
     private boolean validateAllParams(String dateString, String startTimeString,
     String locationString, String departmentString, String emailString, Date date, int duration){
         if(!(validateDate(date,dateString))){return false;}
         if(!(isValidTimeslot(startTimeString))){return false;}
         if(!(isValidLocation(locationString))){return false;}
+        if(!(isValidDepartment(departmentString))){return false;}
         if(!(isValidContact(departmentString, emailString))){return false;}
         if(!(isValidDuration(duration))){return false;}
 
@@ -247,8 +277,4 @@ public class EventOrganizer {
         return monthsDifference <= Constants.MAX_BOOKING_MONTHS_AHEAD;
     }
 
-    public static void main(String[] args) {
-        EventOrganizer organizer = new EventOrganizer();
-        organizer.run();
-    }
 }

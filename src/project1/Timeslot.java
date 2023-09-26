@@ -4,15 +4,15 @@ package project1;
  * @ZainZulfiqar
  */
 public enum Timeslot {
-    MORNING(10, 30),
-    AFTERNOON(14, 00),
+    MORNING(10, "30"),
+    AFTERNOON(14, "00"),
 
-    EVENING(18, 30);
+    EVENING(18, "30");
 
     private final int Hour;
-    private final int Minute;
+    private final String Minute;
 
-    Timeslot(int Hour, int Minute) {
+    Timeslot(int Hour, String Minute) {
         this.Hour = Hour;
         this.Minute = Minute;
     }
@@ -21,7 +21,5 @@ public enum Timeslot {
         return this.Hour;
     }
 
-    public int getMinute() {
-        return this.Minute;
-    }
+    public String getMinute() {return this.Minute;}
 }
