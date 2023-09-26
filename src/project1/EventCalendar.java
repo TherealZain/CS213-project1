@@ -35,14 +35,29 @@ public class EventCalendar {
     }
 
     public void remove(Event event) {
-        int removeIndex = find(event);
+        int removeIndex = findRemove(event);
         if (removeIndex != Constants.NOT_FOUND) {
+            // Shift the events to remove the specified event
             for (int i = removeIndex; i < numEvents - 1; i++) {
                 events[i] = events[i + 1];
             }
+
+            // Set the last element to null and decrement the count
+            events[numEvents - 1] = null;
             numEvents--;
-            events[numEvents] = null;
         }
+    }
+
+    public int findRemove(Event event) {
+        for (int i = 0; i < numEvents; i++) {
+            String eventString = events[i].toString();
+            String dummyString = event.removeToString();
+
+            if (eventString.startsWith(dummyString)) {
+                return i;
+            }
+        }
+        return Constants.NOT_FOUND;
     }
 
     public boolean contains(Event event) {

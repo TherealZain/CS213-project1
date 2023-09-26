@@ -42,7 +42,7 @@ public class EventOrganizer {
 
     private void handleACommand(StringTokenizer tokenizer) {
         System.out.println();
-        Event event = parseAndCreateEvent(tokenizer);
+        Event event = createEventForACommand(tokenizer);
 
         if (!(eventOnCalendar(event)) || event == null) {
             return;
@@ -53,16 +53,7 @@ public class EventOrganizer {
 
     private void handleRCommand(StringTokenizer tokenizer) {
         System.out.println();
-        String dateString = tokenizer.nextToken();
-        String startTimeString = tokenizer.nextToken();
-        String locationString = tokenizer.nextToken();
-        Date date = parseDate(dateString);
-        if(!(validateDate(date,dateString))){return;}
-        if(!(isValidTimeslot(startTimeString))){return;}
-        if(!(isValidLocation(locationString))){return;}
-        Timeslot startTime = Timeslot.valueOf(startTimeString.toUpperCase());
-        Location location = Location.valueOf(locationString.toUpperCase());
-        Event event = new Event(date, startTime, location, null, 0);
+        Event event = createEventForRCommand(tokenizer);
 
         if (!(eventOnCalendar(event))) {
             System.out.println("Cannot remove; event is not in the calendar!");
@@ -72,7 +63,6 @@ public class EventOrganizer {
     }
 
     private void handlePCommand(StringTokenizer tokenizer) {
-
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
         return;
@@ -104,7 +94,7 @@ public class EventOrganizer {
         calendar.printByDepartment();
     }
 
-    private Event parseAndCreateEvent(StringTokenizer tokenizer) {
+    private Event createEventForACommand(StringTokenizer tokenizer) {
         String dateString = tokenizer.nextToken();
         String startTimeString = tokenizer.nextToken();
         String locationString = tokenizer.nextToken();
@@ -124,6 +114,30 @@ public class EventOrganizer {
         Location location = Location.valueOf(locationString.toUpperCase());
 
         return new Event(date, startTime, location, contact, duration);
+    }
+
+    private Event createEventForRCommand(StringTokenizer tokenizer) {
+        String dateString = tokenizer.nextToken();
+        String startTimeString = tokenizer.nextToken();
+        String locationString = tokenizer.nextToken();
+        Date date = parseDate(dateString);
+
+        if (!(validateDate(date, dateString))) {
+            return null;
+        }
+
+        if (!(isValidTimeslot(startTimeString))) {
+            return null;
+        }
+
+        if (!(isValidLocation(locationString))) {
+            return null;
+        }
+
+        Timeslot startTime = Timeslot.valueOf(startTimeString.toUpperCase());
+        Location location = Location.valueOf(locationString.toUpperCase());
+
+        return new Event(date, startTime, location, null, 0);
     }
 
     private boolean validateDate(Date date, String dateString) {

@@ -69,14 +69,28 @@ public class Event implements Comparable<Event> {
     public String toString(){
         String endTime = getEndTime(this.startTime, this.duration);
 
-        return "[Event Date: " + date.dateString() + "]" + "[Start: " + startTime.getHour() +":"
-                + startTime.getMinute() + "]" + "[End: " + endTime + "] "
-                + "@" + location.name() + "(" + location.getRoomNumber() +
-                "," + location.getCampus() + "[Contact: " + contact.getDepartment()
+        return "[Event Date: " + date.dateString() + "] " + "[Start: " + startTime.getHour() +":"
+                + startTime.getMinute() + "] " + "[End: " + endTime + "] "
+                + "@" + location.name() + " (" + location.getRoomNumber() +
+                ", " + location.getCampus() + ") " + "[Contact: " + contact.getDepartment()
                 + "," + contact.getEmail() +"]";
     }
 
+    public String removeToString(){
+        String endTime = getEndTime(this.startTime, this.duration);
+
+        return "[Event Date: " + date.dateString() + "] " + "[Start: " + startTime.getHour() +":"
+                + startTime.getMinute() + "] " + "[End: " + endTime + "] "
+                + "@" + location.name() + " (" + location.getRoomNumber() +
+                ", " + location.getCampus() + ")";
+    }
+
+
     // needs testing -nick
+    public static String reformatStartTime(Timeslot startTime) {
+        int hour = startTime.getHour();
+        String minute
+    }
     public static String getEndTime(Timeslot startTime, int duration) {
         int hours = duration / 60;
         int minutes = duration % 60;
