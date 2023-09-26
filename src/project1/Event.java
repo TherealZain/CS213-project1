@@ -22,19 +22,33 @@ public class Event implements Comparable<Event> {
         this.duration = duration;
     }
 
-
+    /**
+     * Gets location of event
+     * @return location
+     */
     public Location getLocation() {
         return location;
     }
+
+    /**
+     * Gets contact information of person associated with event
+     * @return contact
+     */
     public Contact getContact(){
         return contact;
     }
+
+    /**
+     * Checks if object is a event if so checks if date, timeslot and location are the same
+     * @param o object being compared if event
+     * @return true if date, timeslot and location are same
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Event) {
             Event other = (Event) o;
 
-            return (date != null ? date.equals(other.date) : other.date == null) &&
+            return (date != null ? date.compareTo(other.date) == 0 : other.date == null) &&
                     (startTime != null ? startTime.equals(other.startTime) : other.startTime == null) &&
                     (location != null ? location.equals(other.location) : other.location == null);
         }
@@ -42,6 +56,11 @@ public class Event implements Comparable<Event> {
 
     }
 
+    /**
+     * Compares dates and timeslots
+     * @param o event being compared
+     * @return -1 if date is before, 1 if date is ahead, 0 if dates are the same
+     */
     @Override
     // compare dates first, then timeslots if the dates are the same
     public int compareTo(Event o) {
@@ -68,16 +87,36 @@ public class Event implements Comparable<Event> {
     @Override
     public String toString(){
         String endTime = getEndTime(this.startTime, this.duration);
-
-        return "[Event Date: " + date.dateString() + "] " + "[Start: " + startTime.getHour() +":"
-                + startTime.getMinute() + "] " + "[End: " + endTime + "] "
-                + "@" + location.name() + " (" + location.getRoomNumber() +
-                ", " + location.getCampus() + ") " + "[Contact: " + contact.getDepartment()
-                + ", " + contact.getEmail() +"]";
+        String startTimeAmPm = convertToAmPm(startTime.getHour(), startTime.getMinute());
+        return "[Event Date: " + date.dateString() + "] " + "[Start: " + startTimeAmPm
+                + "] " + "[End: " + endTime + "] " + "@" + location.name() +
+                " (" + location.getRoomNumber() + ", " + location.getCampus()
+                + ") " + "[Contact: " + contact.getDepartment() + ", " + contact.getEmail() +"]";
     }
 
-    // needs testing -nick
-    public static String getEndTime(Timeslot startTime, int duration) {
+    /**
+     * Converts military time, for timeslot enum to am or pm format
+     * @param hour
+     * @param minute
+     * @return time as string in am or pm format
+     */
+    private static String convertToAmPm(int hour, String minute) {
+        String amOrPm = (hour < 12) ? "am" : "pm";
+        if (hour > 12) {
+            hour -= 12;
+        } else if (hour == 0) {
+            hour = 12;
+        }
+        return hour + ":" + minute + amOrPm;
+    }
+
+    /**
+     * Calculates end time of event
+     * @param startTime of event
+     * @param duration of event
+     * @return end time as string in am or pm format
+     */
+    private static String getEndTime(Timeslot startTime, int duration) {
         int hours = duration / 60;
         int minutes = duration % 60;
 
@@ -103,7 +142,10 @@ public class Event implements Comparable<Event> {
     }
 
 
-
+    /**
+     * Testbed Main
+     *
+     */
     public static void main(String[] args) {
         testDateTimeLocation_same();
         testDateTimeLocation_differentDate();

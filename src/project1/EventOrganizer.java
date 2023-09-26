@@ -44,7 +44,11 @@ public class EventOrganizer {
         System.out.println();
         Event event = createEventForACommand(tokenizer);
 
-        if (!(eventOnCalendar(event)) || event == null) {
+        if (!(eventNotOnCalendar(event))) {
+            System.out.println("The event is already on the calendar.");
+            return;
+        }
+        if(event == null){
             return;
         }
         calendar.add(event);
@@ -54,44 +58,56 @@ public class EventOrganizer {
     private void handleRCommand(StringTokenizer tokenizer) {
         System.out.println();
         Event event = createEventForRCommand(tokenizer);
-
-        if (!(eventOnCalendar(event))) {
+        if(event == null){
+            return;
+        }
+        if ((eventNotOnCalendar(event))) {
             System.out.println("Cannot remove; event is not in the calendar!");
+            return;
         }
         calendar.remove(event);
         System.out.println("Event has been removed from the calendar!");
+
     }
 
     private void handlePCommand(StringTokenizer tokenizer) {
+        System.out.println("* Event calendar *");
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
         return;
         }
         calendar.print();
+        System.out.println("* end of event calendar *");
     }
 
     private void handlePECommand(StringTokenizer tokenizer) {
+        System.out.println("Event calendar by event date and start time");
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
             return;
         }
         calendar.printByDateAndTimeslot();
+        System.out.println("* end of event calendar *");
     }
 
     private void handlePCCommand(StringTokenizer tokenizer) {
+        System.out.println("* Event calendar by campus and building");
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
             return;
         }
         calendar.printByCampus();
+        System.out.println("* end of event calendar *");
     }
 
     private void handlePDCommand(StringTokenizer tokenizer) {
+        System.out.println("Event calendar by department");
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
             return;
         }
         calendar.printByDepartment();
+        System.out.println("* end of event calendar *");
     }
 
     private Event createEventForACommand(StringTokenizer tokenizer) {
@@ -136,8 +152,9 @@ public class EventOrganizer {
 
         Timeslot startTime = Timeslot.valueOf(startTimeString.toUpperCase());
         Location location = Location.valueOf(locationString.toUpperCase());
+        Contact randomContact = new Contact(Department.CS, "cs@rutgers.edu");
 
-        return new Event(date, startTime, location, null, 0);
+        return new Event(date, startTime, location, randomContact, 0);
     }
 
     private boolean validateDate(Date date, String dateString) {
@@ -251,9 +268,8 @@ public class EventOrganizer {
         return true;
     }
 
-    private boolean eventOnCalendar(Event event) {
+    private boolean eventNotOnCalendar(Event event) {
         if(calendar.contains(event)){
-            System.out.println("The event is already on the calendar.");
             return false;
         }
         return true;

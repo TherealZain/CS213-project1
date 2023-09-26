@@ -70,38 +70,37 @@ public class EventCalendar {
             }
         }
     }
+private void selectionSortLocation() {
+    for (int i = 0; i < numEvents - 1; i++) {
+        int currentMinIndex = i;
 
-    private void selectionSortLocation() {
-        for (int i = 0; i < numEvents - 1; i++) {
-            int currentMinIndex = i;
+        for (int j = i + 1; j < numEvents; j++) {
+            String campusA = events[currentMinIndex].getLocation().getCampus();
+            String campusB = events[j].getLocation().getCampus();
 
-            for (int j = i + 1; j < numEvents; j++) {
-                String campusA = events[currentMinIndex].getLocation().getCampus();
-                String campusB = events[j].getLocation().getCampus();
+            int campusComparison = campusA.compareTo(campusB);
 
-                int campusComparison = campusA.compareTo(campusB);
-                if (campusComparison > 0) {
+            if (campusComparison > 0) {
+                currentMinIndex = j;
+            } else if (campusComparison == 0) {
+                String roomA = events[currentMinIndex].getLocation().getRoomNumber();
+                String roomB = events[j].getLocation().getRoomNumber();
+
+                int roomComparison = roomA.compareTo(roomB);
+
+                if (roomComparison > 0) {
                     currentMinIndex = j;
-                } else if (campusComparison == 0) {
-                    String roomA = events[currentMinIndex].getLocation().getRoomNumber();
-                    String roomB = events[j].getLocation().getRoomNumber();
-
-                    int roomComparison = roomA.compareTo(roomB);
-
-                    if (roomComparison > 0) {
-                        currentMinIndex = j;
-                    }
                 }
             }
+        }
 
-            if (currentMinIndex != i) {
-                Event temp = events[i];
-                events[i] = events[currentMinIndex];
-                events[currentMinIndex] = temp;
-            }
+        if (currentMinIndex != i) {
+            Event temp = events[i];
+            events[i] = events[currentMinIndex];
+            events[currentMinIndex] = temp;
         }
     }
-
+}
     private void selectionSortDepartment(){
         for(int i = 0; i< numEvents-1; i++){
             int currentMinIndex = i;
