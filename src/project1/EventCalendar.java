@@ -82,8 +82,8 @@ public class EventCalendar {
                 if (campusComparison > 0) {
                     currentMinIndex = j;
                 } else if (campusComparison == 0) {
-                    String roomA = events[currentMinIndex].getLocation().getRoomNumber();
-                    String roomB = events[j].getLocation().getRoomNumber();
+                    String roomA = events[currentMinIndex].getLocation().getRoomNumber().trim();
+                    String roomB = events[j].getLocation().getRoomNumber().trim();
 
                     int roomComparison = roomA.compareTo(roomB);
 
