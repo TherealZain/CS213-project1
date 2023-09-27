@@ -199,7 +199,7 @@ public class EventOrganizer {
     }
 
     /**
-     * Validates given date
+     * Validates given date based on 3 conditions: valid calendar date, future date, date within 6 months
      * @param date
      * @param dateString
      * @return boolean
@@ -219,6 +219,11 @@ public class EventOrganizer {
         return true;
     }
 
+    /**
+     * Parses date string from command line and converts to Date object
+     * @param dateString
+     * @return created Date object
+     */
     private Date parseDate(String dateString) {
         String[] dateComponents = dateString.split("/");
         if (dateComponents.length == 3) {
