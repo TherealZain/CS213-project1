@@ -85,7 +85,11 @@ public class EventOrganizer {
 
     }
 
-    vv                                                                                                                           jgv bg nl    private void handlePCommand(StringTokenizer tokenizer) {
+    /**
+     * Handles "P" command whether calendar is empty or not
+     * @param tokenizer
+     */
+    private void handlePCommand(StringTokenizer tokenizer) {
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
         return;
