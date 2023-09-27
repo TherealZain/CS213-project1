@@ -41,7 +41,6 @@ public class EventOrganizer {
     }
 
     private void handleACommand(StringTokenizer tokenizer) {
-        System.out.println();
         Event event = createEventForACommand(tokenizer);
 
         if (!(eventNotOnCalendar(event))) {
@@ -56,7 +55,6 @@ public class EventOrganizer {
     }
 
     private void handleRCommand(StringTokenizer tokenizer) {
-        System.out.println();
         Event event = createEventForRCommand(tokenizer);
         if(event == null){
             return;
@@ -71,41 +69,41 @@ public class EventOrganizer {
     }
 
     private void handlePCommand(StringTokenizer tokenizer) {
-        System.out.println("* Event calendar *");
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
         return;
         }
+        System.out.println("* Event calendar *");
         calendar.print();
         System.out.println("* end of event calendar *");
     }
 
     private void handlePECommand(StringTokenizer tokenizer) {
-        System.out.println("Event calendar by event date and start time");
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
             return;
         }
+        System.out.println("* Event calendar by event date and start time *");
         calendar.printByDateAndTimeslot();
         System.out.println("* end of event calendar *");
     }
 
     private void handlePCCommand(StringTokenizer tokenizer) {
-        System.out.println("* Event calendar by campus and building");
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
             return;
         }
+        System.out.println("* Event calendar by campus and building *");
         calendar.printByCampus();
         System.out.println("* end of event calendar *");
     }
 
     private void handlePDCommand(StringTokenizer tokenizer) {
-        System.out.println("Event calendar by department");
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
             return;
         }
+        System.out.println("* Event calendar by department *");
         calendar.printByDepartment();
         System.out.println("* end of event calendar *");
     }
