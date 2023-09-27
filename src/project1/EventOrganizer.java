@@ -99,6 +99,10 @@ public class EventOrganizer {
         System.out.println("* end of event calendar *");
     }
 
+    /**
+     * Handles "PE" command whether calendar is empty or not
+     * @param tokenizer
+     */
     private void handlePECommand(StringTokenizer tokenizer) {
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
@@ -109,6 +113,10 @@ public class EventOrganizer {
         System.out.println("* end of event calendar *");
     }
 
+    /**
+     * Handles "PC" command whether calendar is empty or not
+     * @param tokenizer
+     */
     private void handlePCCommand(StringTokenizer tokenizer) {
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
@@ -119,6 +127,10 @@ public class EventOrganizer {
         System.out.println("* end of event calendar *");
     }
 
+    /**
+     * Handles "PD" command whether calendar is empty or not
+     * @param tokenizer
+     */
     private void handlePDCommand(StringTokenizer tokenizer) {
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
@@ -129,6 +141,11 @@ public class EventOrganizer {
         System.out.println("* end of event calendar *");
     }
 
+    /**
+     * Creates event specific for "A" command (7 total tokens including "A")
+     * @param tokenizer
+     * @return created event
+     */
     private Event createEventForACommand(StringTokenizer tokenizer) {
         String dateString = tokenizer.nextToken();
         String startTimeString = tokenizer.nextToken();
@@ -151,6 +168,11 @@ public class EventOrganizer {
         return new Event(date, startTime, location, contact, duration);
     }
 
+    /**
+     * Creates event specific for "R" command (5 total tokens including "R")
+     * @param tokenizer
+     * @return created event
+     */
     private Event createEventForRCommand(StringTokenizer tokenizer) {
         String dateString = tokenizer.nextToken();
         String startTimeString = tokenizer.nextToken();
@@ -176,6 +198,12 @@ public class EventOrganizer {
         return new Event(date, startTime, location, randomContact, 0);
     }
 
+    /**
+     * Validates given date
+     * @param date
+     * @param dateString
+     * @return boolean
+     */
     private boolean validateDate(Date date, String dateString) {
         if(!(date.isValid())){
             System.out.println(dateString + ": Invalid calendar date!");
