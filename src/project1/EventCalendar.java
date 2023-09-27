@@ -75,9 +75,8 @@ public class EventCalendar {
             int currentMinIndex = i;
 
             for (int j = i + 1; j < numEvents; j++) {
-                String campusA = events[currentMinIndex].getLocation().getCampus();
-                String campusB = events[j].getLocation().getCampus();
-
+                String campusA = events[currentMinIndex].getLocation().getCampus().trim();
+                String campusB = events[j].getLocation().getCampus().trim();
                 int campusComparison = campusA.compareTo(campusB);
 
                 if (campusComparison > 0) {

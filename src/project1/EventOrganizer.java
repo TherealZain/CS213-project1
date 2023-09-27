@@ -4,6 +4,12 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.Calendar;
 
+/**
+ * TODO: Need to first check if event is on calendar then validate params
+ * A 10/21/2023 afternoon aa103 ee ee@rutgers.edu 30
+ * because this command is first showing invalid location but expectedoutput is event already on calendar
+ *
+ */
 public class EventOrganizer {
     private boolean isRunning;
     private EventCalendar calendar;
@@ -259,7 +265,6 @@ public class EventOrganizer {
         if(!(validateDate(date,dateString))){return false;}
         if(!(isValidTimeslot(startTimeString))){return false;}
         if(!(isValidLocation(locationString))){return false;}
-        if(!(isValidDepartment(departmentString))){return false;}
         if(!(isValidContact(departmentString, emailString))){return false;}
         if(!(isValidDuration(duration))){return false;}
 
