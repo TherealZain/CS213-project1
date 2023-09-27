@@ -20,6 +20,9 @@ public class EventOrganizer {
         System.out.println("Event Organizer running....");
     }
 
+    /**
+     * Initiates scanner, continuously reads command lines from console until "Q" command is entered
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
 
@@ -46,6 +49,10 @@ public class EventOrganizer {
         scanner.close();
     }
 
+    /**
+     * Handles "A" command whether provided event is already on calendar or not
+     * @param tokenizer
+     */
     private void handleACommand(StringTokenizer tokenizer) {
         Event event = createEventForACommand(tokenizer);
 
@@ -60,6 +67,10 @@ public class EventOrganizer {
         System.out.println("Event added to the calendar.");
     }
 
+    /**
+     * Handles "R" command whether provided event is on calendar or not
+     * @param tokenizer
+     */
     private void handleRCommand(StringTokenizer tokenizer) {
         Event event = createEventForRCommand(tokenizer);
         if(event == null){
@@ -74,7 +85,7 @@ public class EventOrganizer {
 
     }
 
-    private void handlePCommand(StringTokenizer tokenizer) {
+    vv                                                                                                                           jgv bg nl    private void handlePCommand(StringTokenizer tokenizer) {
         if(calendar.isEmpty()){
             System.out.println("Event calendar is empty!");
         return;

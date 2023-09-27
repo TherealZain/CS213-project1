@@ -17,9 +17,17 @@ public enum Timeslot {
         this.Minute = Minute;
     }
 
+    /**
+     * Gets hour value associated with timeslot
+     * @return hour of timeslot as int
+     */
     public int getHour() {
         return this.Hour;
     }
 
+    /**
+     * Gets minute value associated with timeslot
+     * @return minute of timeslot as string
+     */
     public String getMinute() {return this.Minute;}
 }

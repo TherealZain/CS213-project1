@@ -13,6 +13,10 @@ public enum Department {
         this.fullName = fullName;
     }
 
+    /**
+     * Gets full name of the department from its acronym
+     * @return fullName
+     */
     public String getFullName(){
         return fullName;
     }
