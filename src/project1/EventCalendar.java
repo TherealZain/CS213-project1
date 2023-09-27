@@ -1,15 +1,28 @@
 package project1;
 
+/**
+ * The EventCalendar class manages an array of Event objects.
+ * It provides functionalities to add, remove, and search for events.
+ * @author Zain Zulfiqar
+ * @author Nicholas Yim
+ */
 public class EventCalendar {
     private Event[] events; //the array holding the list of events
     private int numEvents; //current number of events in the array
 
-    // constructor
+    /**
+     * Constructs an events array with size of INITIAL_CAPACITY, set number of events to 0
+     */
     public EventCalendar() {
         events = new Event[Constants.INITIAL_CAPACITY];
         numEvents = 0;
     }
 
+    /**
+     * Finds an event on the calendar
+     * @param event to be compared with .equals to see if it exists on calendar
+     * @return index of event on calendar, NOT_FOUND if not found
+     */
     private int find(Event event) { //search an event in the list
         for (int i = 0; i < numEvents; i++) {
             if (events[i].equals(event)) {
@@ -19,6 +32,11 @@ public class EventCalendar {
         return Constants.NOT_FOUND;
     }
 
+    /**
+     * Increases events array by GROWTH_INCREMENT
+     * This method creates a new array with increased capacity, copies the existing events into it,
+     * and then replaces the old array with the new one.
+     */
     private void grow() { //increase the capacity by 4
         Event[] newEvents = new Event[events.length + Constants.GROWTH_INCREMENT];
         for (int i = 0; i < numEvents; i++) {
@@ -27,6 +45,11 @@ public class EventCalendar {
         events = newEvents;
     }
 
+    /**
+     * Adds new event to calendar, checks if events array is at capacity first, if so calls grow();
+     * then continues to add
+     * @param event to be added to calendar
+     */
     public void add(Event event) {
         if (numEvents == events.length) {
             grow();
@@ -34,6 +57,10 @@ public class EventCalendar {
         events[numEvents++] = event;
     }
 
+    /**
+     * Removes event from calendar, first checks if event is in calendar, if so then removes
+     * @param event to be removed
+     */
     public void remove(Event event) {
         int removeIndex = find(event);
         if (removeIndex != Constants.NOT_FOUND) {
@@ -45,6 +72,11 @@ public class EventCalendar {
         }
     }
 
+    /**
+     * Checks if calendar contains an event
+     * @param event The event to be checked for existence in calendar.
+     * @return true if calendar contains event
+     */
     public boolean contains(Event event) {
         return find(event) != Constants.NOT_FOUND;
     }

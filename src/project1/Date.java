@@ -33,6 +33,12 @@ public class Date implements Comparable<Date>{
     public static final int CENTENNIAL = 100;
     public static final int QUATERCENTENNIAL = 400;
 
+    /**
+     * Constructs date based on day, month and year
+     * @param year of date
+     * @param month of date
+     * @param day of date
+     */
     public Date(int year, int month, int day){
         this.year = year;
         this. month = month;

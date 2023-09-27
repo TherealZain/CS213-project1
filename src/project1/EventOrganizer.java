@@ -5,15 +5,18 @@ import java.util.StringTokenizer;
 import java.util.Calendar;
 
 /**
- * TODO: Need to first check if event is on calendar then validate params
- * A 10/21/2023 afternoon aa103 ee ee@rutgers.edu 30
- * because this command is first showing invalid location but expectedoutput is event already on calendar
- *
+ * Takes input from user to schedule events by first validating input is correct
+ * @author Zain Zulfiqar
+ * @author Nicholas Yim
  */
 public class EventOrganizer {
     private boolean isRunning;
     private EventCalendar calendar;
 
+    /**
+     * Instantiates new calendar for event and sets isRunning for true to intake
+     * inputs
+     */
     public EventOrganizer() {
         this.calendar = new EventCalendar();
         isRunning = true;
@@ -236,6 +239,11 @@ public class EventOrganizer {
         return null;
     }
 
+    /**
+     * Checks if timeslot input is valid based on Timeslot enum
+     * @param timeslotString timeslot as string
+     * @return true if string is a valid timeslot
+     */
     public static boolean isValidTimeslot(String timeslotString) {
         try {
             Timeslot.valueOf(timeslotString.toUpperCase());
@@ -246,6 +254,11 @@ public class EventOrganizer {
         }
     }
 
+    /**
+     * Checks if location input is valid based on Location enum
+     * @param locationString location as string
+     * @return true if string is a valid location
+     */
     public static boolean isValidLocation(String locationString) {
         try {
             Location.valueOf(locationString.toUpperCase());
@@ -256,6 +269,11 @@ public class EventOrganizer {
         }
     }
 
+    /**
+     * Checks if department input is valid based on Department enum
+     * @param departmentString department as string
+     * @return true if string is a valid department
+     */
     public static boolean isValidDepartment(String departmentString) {
         try {
             Department.valueOf(departmentString.toUpperCase());
@@ -265,6 +283,11 @@ public class EventOrganizer {
         }
     }
 
+    /**
+     * Checks if email input is in right format
+     * @param emailString email as string
+     * @return true if email is in right format
+     */
     public static boolean isValidEmail(String emailString) {
         int atIndex = emailString.indexOf('@');
         if (atIndex == Constants.NOT_FOUND) {
@@ -290,6 +313,12 @@ public class EventOrganizer {
         return false;
     }
 
+    /**
+     * Checks if both isValidDepartment and isValidEmail are valid for inputs
+     * @param departmentString department as string
+     * @param emailString email as string
+     * @return true if isValidDepartment and isValidEmail are true
+     */
     private boolean isValidContact(String departmentString, String emailString) {
         if (isValidDepartment(departmentString) && isValidEmail(emailString)) {
             return true;
@@ -298,6 +327,11 @@ public class EventOrganizer {
         return false;
     }
 
+    /**
+     * Checks if duration of event is less than MIN_DURATION and greater than MAX_DURATION
+     * @param duration of event
+     * @return true if duration is correct, false otherwise
+     */
     private boolean isValidDuration(int duration){
         if (duration < Constants.MIN_DURATION || duration > Constants.MAX_DURATION) {
             System.out.println("Event duration must be at least " +
@@ -307,7 +341,17 @@ public class EventOrganizer {
         return true;
     }
 
-
+    /**
+     * Validates all parameters for event
+     * @param dateString date as string
+     * @param startTimeString start time as string
+     * @param locationString location as string
+     * @param departmentString department as string
+     * @param emailString email as string
+     * @param date date of event
+     * @param duration duration of event
+     * @return true if all parameters are valid
+     */
     private boolean validateAllParams(String dateString, String startTimeString,
     String locationString, String departmentString, String emailString, Date date, int duration){
         if(!(validateDate(date,dateString))){return false;}
@@ -319,6 +363,11 @@ public class EventOrganizer {
         return true;
     }
 
+    /**
+     * Checks if event is not on calendar already
+     * @param event user is attempting to schedule
+     * @return true if event is not on calendar
+     */
     private boolean eventNotOnCalendar(Event event) {
         if(calendar.contains(event)){
             return false;
@@ -326,6 +375,11 @@ public class EventOrganizer {
         return true;
     }
 
+    /**
+     * Checks if date user is inputting is in the future
+     * @param date of event
+     * @return true if date is in future
+     */
     private boolean futureDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
@@ -346,6 +400,11 @@ public class EventOrganizer {
         return false;
     }
 
+    /**
+     * Checks if date is more than MAX_BOOKING_MONTHS_AHEAD
+     * @param date of event
+     * @return true if date is less than MAX_BOOKING_MONTHS_AHEAD
+     */
     private boolean sixMonthDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);

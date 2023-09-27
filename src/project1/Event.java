@@ -2,7 +2,7 @@ package project1;
 
 /**
  * Creates and Represents an event
- * includes information such as date, starttime, location, contact and duration
+ * includes information such as date, start time, location, contact and duration
  * @author Zain Zulfiqar
  * @author Nicholas Yim
  *
@@ -14,6 +14,14 @@ public class Event implements Comparable<Event> {
     private Contact contact; //include the department name and email
     private int duration; //in minutes
 
+    /**
+     * Constructs event based on parameters
+     * @param date of event
+     * @param startTime of event, based on Timeslot
+     * @param location of event
+     * @param contact of event holder
+     * @param duration of how long event will be held
+     */
     public Event(Date date, Timeslot startTime, Location location, Contact contact, int duration) {
         this.date = date;
         this.startTime = startTime;
@@ -39,7 +47,7 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Checks if object is a event if so checks if date, timeslot and location are the same
+     * Checks if object is an event if so checks if date, timeslot and location are the same
      * @param o object being compared if event
      * @return true if date, timeslot and location are same
      */
@@ -200,6 +208,7 @@ public class Event implements Comparable<Event> {
         boolean actualOutput = event1.equals(event2);
         testResult(event1, event2, expectedOutput, actualOutput);
     }
+    /** test results */
     private static void testResult(Event event1, Event event2,
                                       boolean expectedOutput, boolean actualOutput){
         System.out.println("Event 1: " + event1.toString());
