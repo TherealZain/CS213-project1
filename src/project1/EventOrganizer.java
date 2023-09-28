@@ -54,7 +54,7 @@ public class EventOrganizer {
 
     /**
      * Handles "A" command whether provided event is already on calendar or not
-     * @param tokenizer
+     * @param tokenizer as StringTokenizer
      */
     private void handleACommand(StringTokenizer tokenizer) {
         Event event = createEventForACommand(tokenizer);
@@ -72,7 +72,7 @@ public class EventOrganizer {
 
     /**
      * Handles "R" command whether provided event is on calendar or not
-     * @param tokenizer
+     * @param tokenizer as StringTokenizer
      */
     private void handleRCommand(StringTokenizer tokenizer) {
         Event event = createEventForRCommand(tokenizer);
@@ -90,7 +90,7 @@ public class EventOrganizer {
 
     /**
      * Handles "P" command whether calendar is empty or not
-     * @param tokenizer
+     * @param tokenizer as StringTokenizer
      */
     private void handlePCommand(StringTokenizer tokenizer) {
         if(calendar.isEmpty()){
@@ -104,7 +104,7 @@ public class EventOrganizer {
 
     /**
      * Handles "PE" command whether calendar is empty or not
-     * @param tokenizer
+     * @param tokenizer as StringTokenizer
      */
     private void handlePECommand(StringTokenizer tokenizer) {
         if(calendar.isEmpty()){
@@ -118,7 +118,7 @@ public class EventOrganizer {
 
     /**
      * Handles "PC" command whether calendar is empty or not
-     * @param tokenizer
+     * @param tokenizer as StringTokenizer
      */
     private void handlePCCommand(StringTokenizer tokenizer) {
         if(calendar.isEmpty()){
@@ -132,7 +132,7 @@ public class EventOrganizer {
 
     /**
      * Handles "PD" command whether calendar is empty or not
-     * @param tokenizer
+     * @param tokenizer as StringTokenizer
      */
     private void handlePDCommand(StringTokenizer tokenizer) {
         if(calendar.isEmpty()){
@@ -146,7 +146,7 @@ public class EventOrganizer {
 
     /**
      * Creates event specific for "A" command (7 total tokens including "A")
-     * @param tokenizer
+     * @param tokenizer as StringTokenizer
      * @return created event
      */
     private Event createEventForACommand(StringTokenizer tokenizer) {
@@ -173,7 +173,7 @@ public class EventOrganizer {
 
     /**
      * Creates event specific for "R" command (5 total tokens including "R")
-     * @param tokenizer
+     * @param tokenizer as StringTokenizer
      * @return created event
      */
     private Event createEventForRCommand(StringTokenizer tokenizer) {
@@ -182,7 +182,7 @@ public class EventOrganizer {
         String locationString = tokenizer.nextToken();
         Date date = parseDate(dateString);
 
-        if (!(validateDate(date, dateString))) {
+        if (!(isValidDate(date, dateString))) {
             return null;
         }
 
@@ -202,12 +202,12 @@ public class EventOrganizer {
     }
 
     /**
-     * Validates given date based on 3 conditions: valid calendar date, future date, date within 6 months
-     * @param date
-     * @param dateString
-     * @return boolean
+     * Checks if date is valid based on 3 conditions: valid calendar date, future date, date within 6 months
+     * @param date date of event as Date
+     * @param dateString date of event as string
+     * @return true if date passes all conditions, false otherwise
      */
-    private boolean validateDate(Date date, String dateString) {
+    private boolean isValidDate(Date date, String dateString) {
         if(!(date.isValid())){
             System.out.println(dateString + ": Invalid calendar date!");
             return false;
@@ -224,7 +224,7 @@ public class EventOrganizer {
 
     /**
      * Parses date string from command line and converts to Date object
-     * @param dateString
+     * @param dateString date of event as string
      * @return created Date object
      */
     private Date parseDate(String dateString) {
@@ -270,62 +270,27 @@ public class EventOrganizer {
     }
 
     /**
-     * Checks if department input is valid based on Department enum
+     * Checks if contact is valid based on department enum and email format
      * @param departmentString department as string
-     * @return true if string is a valid department
-     */
-    public static boolean isValidDepartment(String departmentString) {
-        try {
-            Department.valueOf(departmentString.toUpperCase());
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Checks if email input is in right format
      * @param emailString email as string
-     * @return true if email is in right format
+     * @return true if string is a valid location
      */
-    public static boolean isValidEmail(String emailString) {
-        int atIndex = emailString.indexOf('@');
-        if (atIndex == Constants.NOT_FOUND) {
-            return false;
-        }
-        String username = emailString.substring(0, atIndex);
-        String domain = emailString.substring(atIndex + 1);
+    public static boolean isValidContact(String departmentString, String emailString) {
+        try {
+            Department department = Department.valueOf(departmentString.toUpperCase());
+            Contact contact = new Contact(department, emailString);
 
-        if (username.isEmpty() || domain.isEmpty()) {
-            return false;
-        }
-
-        if (!domain.equalsIgnoreCase("rutgers.edu")) {
-            return false;
-        }
-
-        for (Department d : Department.values()) {
-            if (username.equalsIgnoreCase(d.name())) {
+            if (contact.isValid()) {
                 return true;
             }
+        } catch (IllegalArgumentException e) {
+            // Invalid department, print error message
         }
 
-        return false;
-    }
-
-    /**
-     * Checks if both isValidDepartment and isValidEmail are valid for inputs
-     * @param departmentString department as string
-     * @param emailString email as string
-     * @return true if isValidDepartment and isValidEmail are true
-     */
-    private boolean isValidContact(String departmentString, String emailString) {
-        if (isValidDepartment(departmentString) && isValidEmail(emailString)) {
-            return true;
-        }
         System.out.println("Invalid contact information!");
         return false;
     }
+
 
     /**
      * Checks if duration of event is less than MIN_DURATION and greater than MAX_DURATION
@@ -354,7 +319,7 @@ public class EventOrganizer {
      */
     private boolean validateAllParams(String dateString, String startTimeString,
     String locationString, String departmentString, String emailString, Date date, int duration){
-        if(!(validateDate(date,dateString))){return false;}
+        if(!(isValidDate(date, dateString))){return false;}
         if(!(isValidTimeslot(startTimeString))){return false;}
         if(!(isValidLocation(locationString))){return false;}
         if(!(isValidContact(departmentString, emailString))){return false;}
@@ -369,7 +334,7 @@ public class EventOrganizer {
      * @return true if event is not on calendar
      */
     private boolean eventNotOnCalendar(Event event) {
-        if(calendar.contains(event)){
+        if (calendar.contains(event)){
             return false;
         }
         return true;

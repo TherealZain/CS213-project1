@@ -26,9 +26,12 @@ public class Contact {
      */
     public boolean isValid(){
         return isValidDepartment() && isValidEmail();
-
     }
 
+    /**
+     * Checks if email input is in right format
+     * @return true if email is in right format
+     */
     public boolean isValidEmail(){
         if (email.toLowerCase().endsWith("@rutgers.edu")) {
             String prefix = email.substring(0, email.indexOf("@"));

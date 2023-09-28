@@ -9,9 +9,7 @@ public enum Department {
 
     private final String fullName;
 
-    Department(String fullName){
-        this.fullName = fullName;
-    }
+    Department(String fullName){ this.fullName = fullName; }
 
     /**
      * Gets full name of the department from its acronym
