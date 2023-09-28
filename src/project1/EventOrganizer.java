@@ -242,7 +242,7 @@ public class EventOrganizer {
     /**
      * Checks if timeslot input is valid based on Timeslot enum
      * @param timeslotString timeslot as string
-     * @return true if string is a valid timeslot
+     * @return true if string is a valid timeslot, false if invalid
      */
     public static boolean isValidTimeslot(String timeslotString) {
         try {
@@ -257,7 +257,7 @@ public class EventOrganizer {
     /**
      * Checks if location input is valid based on Location enum
      * @param locationString location as string
-     * @return true if string is a valid location
+     * @return true if string is a valid location, false if invalid
      */
     public static boolean isValidLocation(String locationString) {
         try {
@@ -273,7 +273,7 @@ public class EventOrganizer {
      * Checks if contact is valid based on department enum and email format
      * @param departmentString department as string
      * @param emailString email as string
-     * @return true if string is a valid location
+     * @return true if string is a valid location, false if invalid
      */
     public static boolean isValidContact(String departmentString, String emailString) {
         try {
@@ -295,7 +295,7 @@ public class EventOrganizer {
     /**
      * Checks if duration of event is less than MIN_DURATION and greater than MAX_DURATION
      * @param duration of event
-     * @return true if duration is correct, false otherwise
+     * @return true if duration is valid, false if invalid
      */
     private boolean isValidDuration(int duration){
         if (duration < Constants.MIN_DURATION || duration > Constants.MAX_DURATION) {
@@ -315,7 +315,7 @@ public class EventOrganizer {
      * @param emailString email as string
      * @param date date of event
      * @param duration duration of event
-     * @return true if all parameters are valid
+     * @return true if all parameters are valid, false if any parameters are invalid
      */
     private boolean validateAllParams(String dateString, String startTimeString,
     String locationString, String departmentString, String emailString, Date date, int duration){
@@ -331,7 +331,7 @@ public class EventOrganizer {
     /**
      * Checks if event is not on calendar already
      * @param event user is attempting to schedule
-     * @return true if event is not on calendar
+     * @return true if event is not on calendar, false if it is
      */
     private boolean eventNotOnCalendar(Event event) {
         if (calendar.contains(event)){
@@ -343,7 +343,7 @@ public class EventOrganizer {
     /**
      * Checks if date user is inputting is in the future
      * @param date of event
-     * @return true if date is in future
+     * @return true if date is in the future, false otherwise
      */
     private boolean futureDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -368,18 +368,26 @@ public class EventOrganizer {
     /**
      * Checks if date is more than MAX_BOOKING_MONTHS_AHEAD
      * @param date of event
-     * @return true if date is less than MAX_BOOKING_MONTHS_AHEAD
+     * @return true if date is less than MAX_BOOKING_MONTHS_AHEAD, false otherwise
      */
     private boolean sixMonthDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH) + Constants.MONTH_STANDARDIZER;
-        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int currentDay = calendar.get(Calendar.DATE);
 
         int monthsDifference = (date.getYear() - currentYear) * Constants.MONTHS_IN_YEAR +
                 (date.getMonth() - currentMonth);
 
-        return monthsDifference <= Constants.MAX_BOOKING_MONTHS_AHEAD;
+        if (monthsDifference < Constants.MAX_BOOKING_MONTHS_AHEAD) {
+            return true;
+        } else if (monthsDifference == Constants.MAX_BOOKING_MONTHS_AHEAD) {
+            if (date.getMonth() == currentMonth) {
+                return date.getDay() >= currentDay;
+            }
+            return true;
+        }
+        return false;
     }
 
 }
