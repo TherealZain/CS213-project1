@@ -91,7 +91,7 @@ public class EventCalendar {
     }
 
     /**
-     *
+     * Selection sort algorithm to sort the events array by date and timeslot
      */
     private void selectionSortDateAndTimeslot() {
         for (int i = 0; i < numEvents - 1; i++) {
@@ -108,6 +108,10 @@ public class EventCalendar {
             }
         }
     }
+
+    /**
+     * Selection sort algorithm to sort the events array by location (campus then room number)
+     */
     private void selectionSortLocation() {
         for (int i = 0; i < numEvents - 1; i++) {
             int currentMinIndex = i;
@@ -138,6 +142,10 @@ public class EventCalendar {
             }
         }
     }
+
+    /**
+     * Selection sort algorithm to sort the events array by department
+     */
     private void selectionSortDepartment(){
         for(int i = 0; i< numEvents-1; i++){
             int currentMinIndex = i;
@@ -158,14 +166,20 @@ public class EventCalendar {
         }
     }
 
-    public void printByDateAndTimeslot() { //ordered by date and timeslot
+    /**
+     * Prints sorted events array ordered by date and timeslot
+     */
+    public void printByDateAndTimeslot() {
         selectionSortDateAndTimeslot();
         for (int i = 0; i < numEvents; i++) {
             System.out.println(events[i].toString());
         }
     }
 
-    public void printByCampus() { //ordered by campus and building/room
+    /**
+     * Prints sorted events array ordered by campus and room number
+     */
+    public void printByCampus() {
         selectionSortLocation();
         for (int i = 0; i < numEvents; i++) {
             System.out.println(events[i].toString());
@@ -173,12 +187,20 @@ public class EventCalendar {
 
     }
 
+    /**
+     * Prints sorted events array ordered by department
+     */
     public void printByDepartment () { //ordered by department
         selectionSortDepartment();
         for (int i = 0; i < numEvents; i++) {
             System.out.println(events[i].toString());
         }
     }
+
+    /**
+     * Checks if there are no events in the calendar
+     * @return true if there are no events, false otherwise
+     */
     public boolean isEmpty() {
         return numEvents == 0;
     }

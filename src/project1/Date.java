@@ -110,12 +110,10 @@ public class Date implements Comparable<Date>{
      * @return true if date is correct
      */
     public boolean isValid(){
-        // check if month is valid
         if (month < JAN || month > DEC) {
             return false;
         }
 
-        // check if date is valid based on month
         switch (month) {
             case JAN, MAR, MAY, JUL, AUG, OCT, DEC -> {
                 return day >= MIN_DAYS_IN_MONTH && day <= DAYS_IN_LONG_MONTH;
@@ -139,7 +137,7 @@ public class Date implements Comparable<Date>{
 
     /**
      * Checks if year is a leap year
-     * @param year
+     * @param year as int
      * @return true if year is leap year
      */
     public boolean isLeapYear(int year) {
