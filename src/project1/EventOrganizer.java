@@ -14,8 +14,7 @@ public class EventOrganizer {
     private EventCalendar calendar;
 
     /**
-     * Instantiates new calendar for event and sets isRunning for true to intake
-     * inputs
+     * Instantiates new calendar for event and sets isRunning for true to receive inputs
      */
     public EventOrganizer() {
         this.calendar = new EventCalendar();

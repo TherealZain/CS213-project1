@@ -3,15 +3,15 @@ package project1;
 /**
  * The EventCalendar class manages an array of Event objects.
  * It provides functionalities to add, remove, and search for events.
- * @author Zain Zulfiqar
  * @author Nicholas Yim
+ * @author Zain Zulfiqar
  */
 public class EventCalendar {
     private Event[] events; //the array holding the list of events
     private int numEvents; //current number of events in the array
 
     /**
-     * Constructs an events array with size of INITIAL_CAPACITY, set number of events to 0
+     * Constructs an events array with size of INITIAL_CAPACITY, sets number of events to 0
      */
     public EventCalendar() {
         events = new Event[Constants.INITIAL_CAPACITY];

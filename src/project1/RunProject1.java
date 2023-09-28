@@ -1,5 +1,8 @@
 package project1;
 
+/**
+ * @author Nicholas Yim
+ */
 public class RunProject1 {
 
     /**

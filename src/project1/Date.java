@@ -3,8 +3,8 @@ package project1;
 /**
  * Represents a date includes constants day, month and year
  * Includes isValid and compareTo methods
- * @author Zain Zulfiqar
  * @author Nicholas Yim
+ * @author Zain Zulfiqar
  */
 public class Date implements Comparable<Date>{
     private int year;
@@ -35,9 +35,9 @@ public class Date implements Comparable<Date>{
 
     /**
      * Constructs date based on day, month and year
-     * @param year of date
-     * @param month of date
-     * @param day of date
+     * @param year of date as int
+     * @param month of date as int
+     * @param day of date as int
      */
     public Date(int year, int month, int day){
         this.year = year;
@@ -47,25 +47,25 @@ public class Date implements Comparable<Date>{
 
     /**
      * Returns year of date instance
-     * @return year
+     * @return year as int
      */
     public int getYear() { return this.year; }
 
     /**
      * Returns month of date instance
-     * @return month
+     * @return month as int
      */
     public int getMonth() { return this.month; }
 
     /**
      * Returns day of day instance
-     * @return day
+     * @return day as int
      */
     public int getDay() { return this.day; }
 
     /**
-     * Returns formatted  date as string
-     * @return date as string
+     * Returns formatted date as String
+     * @return date as String
      */
     public String dateString(){
         return month + "/" + day + "/" + year;

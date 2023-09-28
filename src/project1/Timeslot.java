@@ -1,7 +1,7 @@
 package project1;
 
 /**
- * @ZainZulfiqar
+ * @author ZainZulfiqar
  */
 public enum Timeslot {
     MORNING(10, "30"),
@@ -12,6 +12,11 @@ public enum Timeslot {
     private final int Hour;
     private final String Minute;
 
+    /**
+     * Constructs Timeslot based on Hour and Minute
+     * @param Hour of Timeslot as int
+     * @param Minute of Timeslot as String
+     */
     Timeslot(int Hour, String Minute) {
         this.Hour = Hour;
         this.Minute = Minute;

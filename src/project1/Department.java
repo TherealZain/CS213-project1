@@ -1,5 +1,8 @@
 package project1;
 
+/**
+ * @author Zain Zulfiqar
+ */
 public enum Department {
     CS("Computer Science"),
     EE ("Electrical Engineering"),
@@ -9,6 +12,10 @@ public enum Department {
 
     private final String fullName;
 
+    /**
+     * Constructs Department enum based on fullName
+     * @param fullName of department as String
+     */
     Department(String fullName){ this.fullName = fullName; }
 
     /**

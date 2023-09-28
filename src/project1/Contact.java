@@ -1,18 +1,34 @@
 package project1;
 
+/**
+ * @author Zain Zulfiqar
+ */
 public class Contact {
     private Department department;
     private String email;
 
+    /**
+     * Constructs Contact based on department and email
+     * @param department of Contact as Department
+     * @param email of Contact as String
+     */
     public Contact(Department department, String email){
         this.department = department;
         this.email = email;
     }
 
+    /**
+     * Gets department's full name from the department enum
+     * @return fullName of department as String
+     */
     public String getDepartment(){
         return department.getFullName();
     }
 
+    /**
+     * Gets department's email in proper formatting
+     * @return email as String
+     */
     public String getEmail() {
         String departmentAcronyms = department.name().toLowerCase();
         return departmentAcronyms + "@rutgers.edu";

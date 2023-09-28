@@ -152,7 +152,7 @@ public class Event implements Comparable<Event> {
 
     /**
      * Testbed Main
-     *
+     * @param args command line arguments
      */
     public static void main(String[] args) {
         testDateTimeLocation_same();

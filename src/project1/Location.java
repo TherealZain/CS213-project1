@@ -4,7 +4,6 @@ package project1;
  * Represents location, includes all constants of where a event could take place
  * Hill Center, Allison Road Classroom, Beck Hall, Tillet Hall, Academic Building and Murray Hall
  * @author Zain Zulfiqar
- *
  */
 public enum Location {
 
