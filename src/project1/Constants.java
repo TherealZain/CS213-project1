@@ -6,6 +6,9 @@ package project1;
 public class Constants {
 
     // EventOrganizer defined constants
+    public static final int NOON_HOUR = 12;
+    public static final int HOURS_IN_DAY = 24;
+    public static final int MINUTES_IN_HOUR = 60;
     public static final int MONTH_STANDARDIZER = 1;
     public static final int MONTHS_IN_YEAR = 12;
     public static final int MAX_BOOKING_MONTHS_AHEAD = 6;
