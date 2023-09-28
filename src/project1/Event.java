@@ -2,7 +2,7 @@ package project1;
 
 /**
  * Creates and Represents an event
- * includes information such as date, start time, location, contact and duration
+ * Includes date, start time, location, contact and duration
  * @author Zain Zulfiqar
  * @author Nicholas Yim
  *
@@ -90,7 +90,7 @@ public class Event implements Comparable<Event> {
 
     /**
      * Returns information about the Event in format
-     * @return string representing event
+     * @return String representing event
      */
     @Override
     public String toString(){
@@ -103,10 +103,10 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Converts military time, for timeslot enum to am or pm format
-     * @param hour
-     * @param minute
-     * @return time as string in am or pm format
+     * Converts military time for Timeslot enum to correct am/pm format
+     * @param hour of Timeslot as int
+     * @param minute of Timeslot as String
+     * @return time as String in HH:MMxx format where xx is 'am' or 'pm'
      */
     private static String convertToAmPm(int hour, String minute) {
         String amOrPm = (hour < 12) ? "am" : "pm";
@@ -119,10 +119,10 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Calculates end time of event
+     * Calculates end time of event in correct am/pm format
      * @param startTime of event
      * @param duration of event
-     * @return end time as string in am or pm format
+     * @return end time as String HH:MMxx format where xx is 'am' or 'pm'
      */
     private static String getEndTime(Timeslot startTime, int duration) {
         int hours = duration / 60;
@@ -170,7 +170,8 @@ public class Event implements Comparable<Event> {
         int duration = 30;
         Event event1 = new Event(date, time, loc, contact1, duration);
         Event event2 = new Event(date, time, loc, contact2, duration);
-        System.out.println("**Test case #1: Events with same date, time and location should be equal");
+        System.out.println("**Test case #1: Events with same date, time " +
+                "and location should be equal");
         boolean expectedOutput = true;
         boolean actualOutput = event1.equals(event2);
         testResult(event1, event2, expectedOutput, actualOutput);
@@ -184,7 +185,8 @@ public class Event implements Comparable<Event> {
         Contact contact1 = new Contact(Department.CS, "cs@rutgers.edu");
         Contact contact2 = new Contact(Department.MATH, "math@rutgers.edu");
         int duration = 30;
-        System.out.println("**Test case #2: events with different date should not be equal");
+        System.out.println("**Test case #2: events with different date " +
+                "should not be equal");
         Event event1 = new Event(date1, time, loc, contact1, duration);
         Event event2 = new Event(date2, time, loc, contact2, duration);
         boolean expectedOutput = false;
@@ -203,7 +205,8 @@ public class Event implements Comparable<Event> {
         int duration = 30;
         Event event1 = new Event(date, time1, loc, contact1, duration);
         Event event2 = new Event(date, time2, loc, contact2, duration);
-        System.out.println("**Test case #1: Events with different timeslot should not be equal");
+        System.out.println("**Test case #1: Events with different timeslot " +
+                "should not be equal");
         boolean expectedOutput = false;
         boolean actualOutput = event1.equals(event2);
         testResult(event1, event2, expectedOutput, actualOutput);
@@ -211,7 +214,7 @@ public class Event implements Comparable<Event> {
 
     /** Check if a given test case results in PASS or FAIL...*/
     private static void testResult(Event event1, Event event2,
-                                      boolean expectedOutput, boolean actualOutput){
+                                   boolean expectedOutput, boolean actualOutput){
         System.out.println("Event 1: " + event1.toString());
         System.out.println("Event 2: " + event2.toString());
         System.out.println("Expected Output: " + expectedOutput);

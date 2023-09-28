@@ -52,7 +52,7 @@ public class EventOrganizer {
     }
 
     /**
-     * Handles "A" command whether provided event is already on calendar or not
+     * Handles "A" command whether event is already on calendar or not
      * @param tokenizer as StringTokenizer
      */
     private void handleACommand(StringTokenizer tokenizer) {
@@ -70,7 +70,7 @@ public class EventOrganizer {
     }
 
     /**
-     * Handles "R" command whether provided event is on calendar or not
+     * Handles "R" command whether event is on calendar or not
      * @param tokenizer as StringTokenizer
      */
     private void handleRCommand(StringTokenizer tokenizer) {
@@ -146,7 +146,7 @@ public class EventOrganizer {
     /**
      * Creates event specific for "A" command (7 total tokens including "A")
      * @param tokenizer as StringTokenizer
-     * @return created event
+     * @return created event as Event object
      */
     private Event createEventForACommand(StringTokenizer tokenizer) {
         String dateString = tokenizer.nextToken();
@@ -173,7 +173,7 @@ public class EventOrganizer {
     /**
      * Creates event specific for "R" command (5 total tokens including "R")
      * @param tokenizer as StringTokenizer
-     * @return created event
+     * @return created event as Event object
      */
     private Event createEventForRCommand(StringTokenizer tokenizer) {
         String dateString = tokenizer.nextToken();
@@ -223,8 +223,8 @@ public class EventOrganizer {
 
     /**
      * Parses date string from command line and converts to Date object
-     * @param dateString date of event as string
-     * @return created Date object
+     * @param dateString date of event as String
+     * @return created date as Date object
      */
     private Date parseDate(String dateString) {
         String[] dateComponents = dateString.split("/");
@@ -240,8 +240,8 @@ public class EventOrganizer {
 
     /**
      * Checks if timeslot input is valid based on Timeslot enum
-     * @param timeslotString timeslot as string
-     * @return true if string is a valid timeslot, false if invalid
+     * @param timeslotString timeslot as String
+     * @return true if String is a valid timeslot, false if invalid
      */
     public static boolean isValidTimeslot(String timeslotString) {
         try {
@@ -255,8 +255,8 @@ public class EventOrganizer {
 
     /**
      * Checks if location input is valid based on Location enum
-     * @param locationString location as string
-     * @return true if string is a valid location, false if invalid
+     * @param locationString location as String
+     * @return true if String is a valid location, false if invalid
      */
     public static boolean isValidLocation(String locationString) {
         try {
@@ -270,9 +270,9 @@ public class EventOrganizer {
 
     /**
      * Checks if contact is valid based on department enum and email format
-     * @param departmentString department as string
-     * @param emailString email as string
-     * @return true if string is a valid location, false if invalid
+     * @param departmentString department as String
+     * @param emailString email as String
+     * @return true if String is a valid location, false if invalid
      */
     public static boolean isValidContact(String departmentString, String emailString) {
         try {
@@ -293,7 +293,7 @@ public class EventOrganizer {
 
     /**
      * Checks if duration of event is less than MIN_DURATION and greater than MAX_DURATION
-     * @param duration of event
+     * @param duration of event as int
      * @return true if duration is valid, false if invalid
      */
     private boolean isValidDuration(int duration){
@@ -314,7 +314,7 @@ public class EventOrganizer {
      * @param emailString email as string
      * @param date date of event
      * @param duration duration of event
-     * @return true if all parameters are valid, false if any parameters are invalid
+     * @return true if all parameters are valid, false otherwise
      */
     private boolean validateAllParams(String dateString, String startTimeString,
     String locationString, String departmentString, String emailString, Date date, int duration){
@@ -365,9 +365,9 @@ public class EventOrganizer {
     }
 
     /**
-     * Checks if date is more than MAX_BOOKING_MONTHS_AHEAD
+     * Checks if date difference is more than MAX_BOOKING_MONTHS_AHEAD
      * @param date of event
-     * @return true if date is less than MAX_BOOKING_MONTHS_AHEAD, false otherwise
+     * @return true if date difference is less than MAX_BOOKING_MONTHS_AHEAD, false otherwise
      */
     private boolean sixMonthDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();

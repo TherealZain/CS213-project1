@@ -36,7 +36,7 @@ public class Contact {
 
     /**
      * Checks if department name and email are valid
-     * @return true if both department name and email are valid, false if invalid
+     * @return true if both department name and email are valid, false otherwise
      */
     public boolean isValid(){
         return isValidDepartment() && isValidEmail();
@@ -44,7 +44,7 @@ public class Contact {
 
     /**
      * Checks if email input is in right format
-     * @return true if email is in right format, false if invalid
+     * @return true if email is in right format, false otherwise
      */
     public boolean isValidEmail(){
         if (email.toLowerCase().endsWith("@rutgers.edu")) {
@@ -58,7 +58,7 @@ public class Contact {
 
     /**
      * Checks if department input is valid based on department enum
-     * @return true if department is valid, false if invalid
+     * @return true if department is valid, false otherwise
      */
     public boolean isValidDepartment(){
         Department[] allDepartments = Department.values();

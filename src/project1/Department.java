@@ -16,13 +16,15 @@ public enum Department {
      * Constructs Department enum based on fullName
      * @param fullName of department as String
      */
-    Department(String fullName){ this.fullName = fullName; }
+    Department(String fullName) {
+        this.fullName = fullName;
+    }
 
     /**
      * Gets full name of the department from its acronym
-     * @return fullName
+     * @return fullName as String
      */
-    public String getFullName(){
+    public String getFullName() {
         return fullName;
     }
 }

@@ -1,7 +1,8 @@
 package project1;
 
 /**
- * @author ZainZulfiqar
+ * @author Zain Zulfiqar
+ * @author Nicholas Yim
  */
 public enum Timeslot {
     MORNING(10, "30"),
@@ -24,15 +25,17 @@ public enum Timeslot {
 
     /**
      * Gets hour value associated with timeslot
-     * @return hour of timeslot as int
+     * @return hour of Timeslot as int
      */
     public int getHour() {
         return this.Hour;
     }
 
     /**
-     * Gets minute value associated with timeslot
-     * @return minute of timeslot as string
+     * Gets minute value associated with Timeslot
+     * @return minute of Timeslot as String
      */
-    public String getMinute() {return this.Minute;}
+    public String getMinute() {
+        return this.Minute;
+    }
 }

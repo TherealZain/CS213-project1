@@ -1,8 +1,8 @@
 package project1;
 
 /**
- * Represents location, includes all constants of where a event could take place
- * Hill Center, Allison Road Classroom, Beck Hall, Tillet Hall, Academic Building and Murray Hall
+ * Represents location, includes all constants of where an event could take place
+ * Hill Center, Allison Road Classroom, Beck Hall, Tillett Hall, Academic Building and Murray Hall
  * @author Zain Zulfiqar
  */
 public enum Location {
@@ -25,7 +25,7 @@ public enum Location {
     }
 
     /**
-     * Gives the room number of the location
+     * Gets the room number of the location
      * @return room number of location
      */
     public String getRoomNumber() {
@@ -33,7 +33,7 @@ public enum Location {
     }
 
     /**
-     * Gives the campus of the location
+     * Gets the campus of the location
      * @return campus of location
      */
     public String getCampus() {

@@ -34,7 +34,7 @@ public class Date implements Comparable<Date>{
     public static final int QUATERCENTENNIAL = 400;
 
     /**
-     * Constructs date based on day, month and year
+     * Constructs date based on day, month, and year
      * @param year of date as int
      * @param month of date as int
      * @param day of date as int
@@ -46,26 +46,32 @@ public class Date implements Comparable<Date>{
     }
 
     /**
-     * Returns year of date instance
+     * Gets year of date instance
      * @return year as int
      */
-    public int getYear() { return this.year; }
+    public int getYear() {
+        return this.year;
+    }
 
     /**
-     * Returns month of date instance
+     * Gets month of date instance
      * @return month as int
      */
-    public int getMonth() { return this.month; }
+    public int getMonth() {
+        return this.month;
+    }
 
     /**
-     * Returns day of day instance
+     * Gets day of date instance
      * @return day as int
      */
-    public int getDay() { return this.day; }
+    public int getDay() {
+        return this.day;
+    }
 
     /**
-     * Returns formatted date as String
-     * @return date as String
+     * Converts date to MM/DD/YYYY format
+     * @return date as String in MM/DD/YY format
      */
     public String dateString(){
         return month + "/" + day + "/" + year;
@@ -73,8 +79,8 @@ public class Date implements Comparable<Date>{
 
     /**
      * Compares if dates are before each other, ahead of each other or the same
-     * @param d the date to be compared.
-     * @return int -1 if less, 1 if greater and 0 if same
+     * @param d the Date to be compared
+     * @return int -1 if Date d is less, 1 if greater, and 0 if same
      */
     public int compareTo(Date d){
         // Compare years
@@ -105,9 +111,9 @@ public class Date implements Comparable<Date>{
     }
 
     /**
-     * Checks if date is correctly formatted, if day is correct,
-     * also if leap year checks if February has right number of days
-     * @return true if date is correct
+     * Checks if date is a valid calendar date
+     * Also if leap year, checks if February has the right number of days
+     * @return true if date is a valid calendar date
      */
     public boolean isValid(){
         if (month < JAN || month > DEC) {
@@ -138,7 +144,7 @@ public class Date implements Comparable<Date>{
     /**
      * Checks if year is a leap year
      * @param year as int
-     * @return true if year is leap year
+     * @return true if year is leap year, false otherwise
      */
     public boolean isLeapYear(int year) {
         if (year % QUADRENNIAL == 0) {

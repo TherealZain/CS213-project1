@@ -34,8 +34,7 @@ public class EventCalendar {
 
     /**
      * Increases events array by GROWTH_INCREMENT
-     * This method creates a new array with increased capacity, copies the existing events into it,
-     * and then replaces the old array with the new one.
+     * This method creates a new array with increased capacity, copies the existing events into it, and then replaces the old array with the new one.
      */
     private void grow() { //increase the capacity by 4
         Event[] newEvents = new Event[events.length + Constants.GROWTH_INCREMENT];
@@ -46,8 +45,8 @@ public class EventCalendar {
     }
 
     /**
-     * Adds new event to calendar, checks if events array is at capacity first, if so calls grow();
-     * then continues to add
+     * Adds new event to calendar
+     * Checks if events array is at capacity first; if so, calls grow(), then continues to add
      * @param event to be added to calendar
      */
     public void add(Event event) {
@@ -58,7 +57,8 @@ public class EventCalendar {
     }
 
     /**
-     * Removes event from calendar, first checks if event is in calendar, if so then removes
+     * Removes event from calendar
+     * First checks if event is in calendar; if so, then removes
      * @param event to be removed
      */
     public void remove(Event event) {
@@ -75,7 +75,7 @@ public class EventCalendar {
     /**
      * Checks if calendar contains an event
      * @param event The event to be checked for existence in calendar.
-     * @return true if calendar contains event
+     * @return true if calendar contains event, false otherwise
      */
     public boolean contains(Event event) {
         return find(event) != Constants.NOT_FOUND;
@@ -190,7 +190,7 @@ public class EventCalendar {
     /**
      * Prints sorted events array ordered by department
      */
-    public void printByDepartment () { //ordered by department
+    public void printByDepartment () {
         selectionSortDepartment();
         for (int i = 0; i < numEvents; i++) {
             System.out.println(events[i].toString());
