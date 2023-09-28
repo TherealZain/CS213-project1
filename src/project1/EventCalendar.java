@@ -81,12 +81,18 @@ public class EventCalendar {
         return find(event) != Constants.NOT_FOUND;
     }
 
-    public void print() { //print the array as is
+    /**
+     * Prints the events array as is
+     */
+    public void print() {
         for (int i = 0; i < numEvents; i++) {
             System.out.println(events[i].toString());
         }
     }
 
+    /**
+     *
+     */
     private void selectionSortDateAndTimeslot() {
         for (int i = 0; i < numEvents - 1; i++) {
             int currentMinIndex = i;

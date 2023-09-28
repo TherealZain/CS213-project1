@@ -28,7 +28,6 @@ public enum Location {
     /**
      * Gives the room number of the location
      * @return room number of location
-     *
      */
     public String getRoomNumber() {
         return roomNumber;
