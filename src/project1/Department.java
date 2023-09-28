@@ -1,6 +1,7 @@
 package project1;
 
 /**
+ * Enum class which represents the departments which will be booking events
  * @author Zain Zulfiqar
  */
 public enum Department {
