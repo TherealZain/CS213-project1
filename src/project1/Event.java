@@ -208,12 +208,17 @@ public class Event implements Comparable<Event> {
         boolean actualOutput = event1.equals(event2);
         testResult(event1, event2, expectedOutput, actualOutput);
     }
-    /** test results */
+
+    /** Check if a given test case results in PASS or FAIL...*/
     private static void testResult(Event event1, Event event2,
                                       boolean expectedOutput, boolean actualOutput){
         System.out.println("Event 1: " + event1.toString());
         System.out.println("Event 2: " + event2.toString());
         System.out.println("Expected Output: " + expectedOutput);
         System.out.println("Actual Output: " + actualOutput);
+        if (expectedOutput != actualOutput)
+            System.out.println(" (FAIL) \n");
+        else
+            System.out.println(" (PASS) \n");
     }
 }
