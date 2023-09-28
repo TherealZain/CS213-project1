@@ -170,7 +170,7 @@ public class Event implements Comparable<Event> {
         int duration = 30;
         Event event1 = new Event(date, time, loc, contact1, duration);
         Event event2 = new Event(date, time, loc, contact2, duration);
-        System.out.println("Test case #1: Events with same date, time and location should be equal");
+        System.out.println("**Test case #1: Events with same date, time and location should be equal");
         boolean expectedOutput = true;
         boolean actualOutput = event1.equals(event2);
         testResult(event1, event2, expectedOutput, actualOutput);
@@ -184,7 +184,7 @@ public class Event implements Comparable<Event> {
         Contact contact1 = new Contact(Department.CS, "cs@rutgers.edu");
         Contact contact2 = new Contact(Department.MATH, "math@rutgers.edu");
         int duration = 30;
-        System.out.println("Test case #2: events with different date should not be equal");
+        System.out.println("**Test case #2: events with different date should not be equal");
         Event event1 = new Event(date1, time, loc, contact1, duration);
         Event event2 = new Event(date2, time, loc, contact2, duration);
         boolean expectedOutput = false;
@@ -203,7 +203,7 @@ public class Event implements Comparable<Event> {
         int duration = 30;
         Event event1 = new Event(date, time1, loc, contact1, duration);
         Event event2 = new Event(date, time2, loc, contact2, duration);
-        System.out.println("Test case #1: Events with different timeslot should not be equal");
+        System.out.println("**Test case #1: Events with different timeslot should not be equal");
         boolean expectedOutput = false;
         boolean actualOutput = event1.equals(event2);
         testResult(event1, event2, expectedOutput, actualOutput);

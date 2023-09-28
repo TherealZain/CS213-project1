@@ -169,7 +169,7 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2010, 2, 29);
         boolean expectedOutput = false;
         boolean actualOutput= date.isValid();
-        System.out.println("Test case #1: # of days in Feb. in a non-leap year is 28");
+        System.out.println("**Test case #1: # of days in Feb. in a non-leap year is 28");
         testResult(date, expectedOutput, actualOutput);
     }
     /** Test case #2 */
@@ -177,7 +177,7 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2012, 2, 29);
         boolean expectedOutput = true;
         boolean actualOutput = date.isValid();
-        System.out.println("Test case #2: # of days in Feb. in a leap year is 29");
+        System.out.println("**Test case #2: # of days in Feb. in a leap year is 29");
         testResult(date, expectedOutput, actualOutput);
     }
     /** Test case #3 */
@@ -185,7 +185,7 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2012, 14, 29);
         boolean expectedOutput = false;
         boolean actualOutput = date.isValid();
-        System.out.println("Test case #3: # of months in a year is 12");
+        System.out.println("**Test case #3: # of months in a year is 12");
         testResult(date, expectedOutput, actualOutput);
     }
 
@@ -194,7 +194,7 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2012, 4, 31);
         boolean expectedOutput = false;
         boolean actualOutput = date.isValid();
-        System.out.println("Test case #4: # of days in short month is 30");
+        System.out.println("**Test case #4: # of days in short month is 30");
         testResult(date, expectedOutput, actualOutput);
     }
 
