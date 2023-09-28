@@ -72,7 +72,7 @@ public class Date implements Comparable<Date>{
     }
 
     /**
-     * Compares if months are before each other, ahead of each other or the same
+     * Compares if dates are before each other, ahead of each other or the same
      * @param d the date to be compared.
      * @return int -1 if less, 1 if greater and 0 if same
      */
@@ -156,7 +156,7 @@ public class Date implements Comparable<Date>{
 
     /**
      * Testbed Main
-     *
+     * @param args command line arguments
      */
     public static void main(String[] args){
         testDaysInFeb_NonLeap();
@@ -169,7 +169,7 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2010, 2, 29);
         boolean expectedOutput = false;
         boolean actualOutput= date.isValid();
-        System.out.println("Test case #1: # of days in Feb. in a non leap year is 28");
+        System.out.println("Test case #1: # of days in Feb. in a non-leap year is 28");
         testResult(date, expectedOutput, actualOutput);
     }
     /** Test case #2 */
@@ -197,6 +197,7 @@ public class Date implements Comparable<Date>{
         System.out.println("Test case #4: # of days in short month is 30");
         testResult(date, expectedOutput, actualOutput);
     }
+
 
     private static void testResult(Date date, boolean expectedOutput, boolean actualOutput){
         System.out.println("Date: " + date.dateString());
