@@ -1,6 +1,7 @@
 package project1;
 
 /**
+ * Initializes constants for use in Event and EventCalendar classes
  * @author Nicholas Yim
  * @author Zain Zulfiqar
  */

@@ -1,8 +1,10 @@
 package project1;
 
 /**
- * Represents location, includes all constants of where an event could take place
- * Hill Center, Allison Road Classroom, Beck Hall, Tillett Hall, Academic Building and Murray Hall
+ * Enum class to represent location of events
+ * Includes all constants of where an event could take place
+ * Rooms: Hill Center, Allison Road Classroom, Beck Hall, Tillett Hall, Academic Building, and Murray Hall
+ * Campuses: Busch, Livingston, College Avenue
  * @author Zain Zulfiqar
  * @author Nicholas Yim
  */

@@ -1,6 +1,9 @@
 package project1;
 
 /**
+ * Enum class to represent timeslots that events will begin at
+ * Includes timeslot's hour and minute values
+ * Available timeslots: MORNING (10:30), AFTERNOON (14:00), EVENING (18:30)
  * @author Zain Zulfiqar
  * @author Nicholas Yim
  */

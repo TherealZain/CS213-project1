@@ -1,7 +1,8 @@
 package project1;
 
 /**
- * Represents a date includes constants day, month and year
+ * Creates and represents a date of an event
+ * Includes constants day, month, and year
  * Includes isValid and compareTo methods
  * @author Nicholas Yim
  * @author Zain Zulfiqar
@@ -214,7 +215,5 @@ public class Date implements Comparable<Date>{
         else
             System.out.println(" (PASS) \n");
     }
-
-
 
 }

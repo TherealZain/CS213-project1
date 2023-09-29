@@ -5,7 +5,9 @@ import java.util.StringTokenizer;
 import java.util.Calendar;
 
 /**
- * Takes input from user to schedule events by first validating input is correct
+ * Takes user commands relating to scheduling events on the calendar
+ * First checks if user command is valid
+ * Contains separate functionality for commands starting with A, R, P, PE, PC, PD, and Q
  * @author Zain Zulfiqar
  * @author Nicholas Yim
  */
@@ -23,7 +25,8 @@ public class EventOrganizer {
     }
 
     /**
-     * Initiates scanner, continuously reads command lines from console until "Q" command is entered
+     * Initiates scanner and begins program
+     * Continuously reads command lines from console until "Q" command is entered
      */
     public void run() {
         Scanner scanner = new Scanner(System.in);
@@ -70,7 +73,9 @@ public class EventOrganizer {
     }
 
     /**
-     * Handles "R" command whether event is on calendar or not
+     * Handles "R" command whether event is in calendar or not
+     * Prints success message if event is removed from calendar
+     * Prints error message if event is not in the calendar
      * @param tokenizer as StringTokenizer
      */
     private void handleRCommand(StringTokenizer tokenizer) {
@@ -88,7 +93,9 @@ public class EventOrganizer {
     }
 
     /**
-     * Handles "P" command whether calendar is empty or not
+     * Handles "P" command whether event calendar is empty or not
+     * Prints entire calendar as is if calendar is not empty
+     * Prints error message if event calendar is empty
      * @param tokenizer as StringTokenizer
      */
     private void handlePCommand(StringTokenizer tokenizer) {
@@ -102,7 +109,9 @@ public class EventOrganizer {
     }
 
     /**
-     * Handles "PE" command whether calendar is empty or not
+     * Handles "PE" command whether event calendar is empty or not
+     * Prints entire calendar sorted by event date and start time if calendar is not empty
+     * Prints error message if event calendar is empty
      * @param tokenizer as StringTokenizer
      */
     private void handlePECommand(StringTokenizer tokenizer) {
@@ -116,7 +125,9 @@ public class EventOrganizer {
     }
 
     /**
-     * Handles "PC" command whether calendar is empty or not
+     * Handles "PC" command whether event calendar is empty or not
+     * Prints entire calendar sorted by campus and building if calendar is not empty
+     * Prints error message if event calendar is empty
      * @param tokenizer as StringTokenizer
      */
     private void handlePCCommand(StringTokenizer tokenizer) {
@@ -130,7 +141,9 @@ public class EventOrganizer {
     }
 
     /**
-     * Handles "PD" command whether calendar is empty or not
+     * Handles "PD" command whether event calendar is empty or not
+     * Prints entire calendar sorted by department if calendar is not empty
+     * Prints error message if event calendar is empty
      * @param tokenizer as StringTokenizer
      */
     private void handlePDCommand(StringTokenizer tokenizer) {
@@ -146,7 +159,7 @@ public class EventOrganizer {
     /**
      * Creates event specific for "A" command (7 total tokens including "A")
      * @param tokenizer as StringTokenizer
-     * @return created event as Event object
+     * @return created event as Event object, null if unable to validate all parameters
      */
     private Event createEventForACommand(StringTokenizer tokenizer) {
         String dateString = tokenizer.nextToken();
@@ -173,7 +186,7 @@ public class EventOrganizer {
     /**
      * Creates event specific for "R" command (5 total tokens including "R")
      * @param tokenizer as StringTokenizer
-     * @return created event as Event object
+     * @return created event as Event object, null if unable to validate parameters
      */
     private Event createEventForRCommand(StringTokenizer tokenizer) {
         String dateString = tokenizer.nextToken();

@@ -1,12 +1,13 @@
 package project1;
 
 /**
+ * Runs project 1 by calling run function in EventOrganizer
  * @author Nicholas Yim
  */
 public class RunProject1 {
 
     /**
-     * Driver method to run the software
+     * Driver method that runs the software
      */
     public static void main(String[] args) {
         new EventOrganizer().run();

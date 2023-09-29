@@ -1,6 +1,9 @@
 package project1;
 
 /**
+ * Creates and represents a contact relating to an event
+ * Contains contact's department and email
+ * Includes isValid and related methods to check validity of contact
  * @author Zain Zulfiqar
  */
 public class Contact {

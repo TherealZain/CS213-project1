@@ -1,7 +1,7 @@
 package project1;
 
 /**
- * Creates and Represents an event
+ * Creates and represents an event
  * Includes date, start time, location, contact and duration
  * @author Zain Zulfiqar
  * @author Nicholas Yim
