@@ -40,7 +40,7 @@ public class Contact {
     /**
      * Checks if department name and email are valid
      * @return true if both department name and email are valid,
-     *      false otherwise
+     * false otherwise
      */
     public boolean isValid(){
         return isValidDepartment() && isValidEmail();

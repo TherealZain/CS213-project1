@@ -8,7 +8,7 @@ import java.util.Calendar;
  * Takes user commands relating to scheduling events on the calendar
  * First checks if user command is valid
  * Contains separate functionality for commands starting with
- *      A, R, P, PE, PC, PD, and Q
+ * A, R, P, PE, PC, PD, and Q
  * @author Zain Zulfiqar
  * @author Nicholas Yim
  */
@@ -18,7 +18,7 @@ public class EventOrganizer {
 
     /**
      * Instantiates new calendar for event and sets isRunning for
-     *      true to receive inputs
+     * true to receive inputs
      */
     public EventOrganizer() {
         this.calendar = new EventCalendar();
@@ -59,6 +59,8 @@ public class EventOrganizer {
 
     /**
      * Handles "A" command whether event is already on calendar or not
+     * Prints success message if event is added to the calendar
+     * Prints error message if event is already on the calendar
      * @param tokenizer as StringTokenizer
      */
     private void handleACommand(StringTokenizer tokenizer) {
@@ -114,7 +116,7 @@ public class EventOrganizer {
     /**
      * Handles "PE" command whether event calendar is empty or not
      * Prints entire calendar sorted by event date and start time if
-     *      calendar is not empty
+     * calendar is not empty
      * Prints error message if event calendar is empty
      * @param tokenizer as StringTokenizer
      */
@@ -131,7 +133,7 @@ public class EventOrganizer {
     /**
      * Handles "PC" command whether event calendar is empty or not
      * Prints entire calendar sorted by campus and building if
-     *      calendar is not empty
+     * calendar is not empty
      * Prints error message if event calendar is empty
      * @param tokenizer as StringTokenizer
      */
@@ -165,7 +167,7 @@ public class EventOrganizer {
      * Creates event specific for "A" command (7 total tokens including "A")
      * @param tokenizer as StringTokenizer
      * @return created event as Event object, null if unable to validate
-     *      all parameters
+     * all parameters
      */
     private Event createEventForACommand(StringTokenizer tokenizer) {
         String dateString = tokenizer.nextToken();
@@ -221,7 +223,7 @@ public class EventOrganizer {
 
     /**
      * Checks if date is valid based on 3 conditions: valid calendar date,
-     *      future date, date within 6 months
+     * future date, date within 6 months
      * @param date date of event as Date
      * @param dateString date of event as string
      * @return true if date passes all conditions, false otherwise
@@ -313,7 +315,7 @@ public class EventOrganizer {
 
     /**
      * Checks if duration of event is less than MIN_DURATION and
-     *      greater than MAX_DURATION
+     * greater than MAX_DURATION
      * @param duration of event as int
      * @return true if duration is valid, false if invalid
      */
@@ -389,7 +391,7 @@ public class EventOrganizer {
      * Checks if date difference is more than MAX_BOOKING_MONTHS_AHEAD
      * @param date of event
      * @return true if date difference is less than MAX_BOOKING_MONTHS_AHEAD,
-     *      false otherwise
+     * false otherwise
      */
     private boolean sixMonthDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();

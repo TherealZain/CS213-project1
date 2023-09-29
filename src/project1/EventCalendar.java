@@ -35,7 +35,7 @@ public class EventCalendar {
     /**
      * Increases events array by GROWTH_INCREMENT
      * Creates a new array with increased capacity, copies the existing
-     *      events into it, and then replaces the old array with the new one.
+     * events into it, and then replaces the old array with the new one.
      */
     private void grow() { //increase the capacity by 4
         Event[] newEvents = new Event[events.length + Constants.GROWTH_INCREMENT];
@@ -48,7 +48,7 @@ public class EventCalendar {
     /**
      * Adds new event to calendar
      * Checks if events array is at capacity first; if so, calls grow(),
-     *      then continues to add
+     * then continues to add
      * @param event to be added to calendar
      */
     public void add(Event event) {
@@ -113,7 +113,7 @@ public class EventCalendar {
 
     /**
      * Selection sort algorithm to sort the events array by location
-     *      (campus then room number)
+     * (campus then room number)
      */
     private void selectionSortLocation() {
         for (int i = 0; i < numEvents - 1; i++) {

@@ -114,7 +114,7 @@ public class Date implements Comparable<Date>{
     /**
      * Checks if date is a valid calendar date
      * Also if leap year, checks if February has the right number of days
-     * @return true if date is a valid calendar date
+     * @return true if date is a valid calendar date, false otherwise
      */
     public boolean isValid(){
         if (month < JAN || month > DEC) {

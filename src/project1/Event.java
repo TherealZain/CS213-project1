@@ -51,7 +51,7 @@ public class Event implements Comparable<Event> {
 
     /**
      * Checks if object is an event if so checks if date, timeslot and
-     *      location are the same
+     * location are the same
      * @param o object being compared if event
      * @return true if date, timeslot and location are same
      */
@@ -113,7 +113,7 @@ public class Event implements Comparable<Event> {
 
     /**
      * Converts 24-hour clock for Timeslot enum to 12-hour clock with
-     *      correct am/pm format
+     * correct am/pm format
      * @param hour of Timeslot as int
      * @param minute of Timeslot as String
      * @return time as String in HH:MMxx format where xx is 'am' or 'pm'
