@@ -99,11 +99,11 @@ public class Event implements Comparable<Event> {
         return "[Event Date: " + date.dateString() + "] " + "[Start: " + startTimeAmPm
                 + "] " + "[End: " + endTime + "] " + "@" + location.name() +
                 " (" + location.getRoomNumber() + ", " + location.getCampus()
-                + ") " + "[Contact: " + contact.getDepartment() + ", " + contact.getEmail() +"]";
+                + ") " + "[Contact: " + contact.getDepartment() + ", " + contact.getEmail() + "]";
     }
 
     /**
-     * Converts military time for Timeslot enum to correct am/pm format
+     * Converts 24-hour clock for Timeslot enum to 12-hour clock with correct am/pm format
      * @param hour of Timeslot as int
      * @param minute of Timeslot as String
      * @return time as String in HH:MMxx format where xx is 'am' or 'pm'
@@ -112,14 +112,14 @@ public class Event implements Comparable<Event> {
         String amOrPm = (hour < Constants.NOON_HOUR) ? "am" : "pm";
         if (hour >  Constants.NOON_HOUR) {
             hour -=  Constants.NOON_HOUR;
-        } else if (hour == 0) {
+        } else if (hour == Constants.MIDNIGHT_HOUR) {
             hour =  Constants.NOON_HOUR;
         }
         return hour + ":" + minute + amOrPm;
     }
 
     /**
-     * Calculates end time of event in correct am/pm format
+     * Calculates end time of event in correct 12-hour am/pm format
      * @param startTime of event
      * @param duration of event
      * @return end time as String HH:MMxx format where xx is 'am' or 'pm'
@@ -143,7 +143,7 @@ public class Event implements Comparable<Event> {
         String amOrPm = (endHour < Constants.NOON_HOUR) ? "am" : "pm";
 
         // format time components
-        String hourPart = (endHour % Constants.NOON_HOUR == 0) ? "12" : Integer.toString(endHour % 12);
+        String hourPart = (endHour % Constants.NOON_HOUR == Constants.NO_REMAINDER) ? "12" : Integer.toString(endHour % Constants.NOON_HOUR);
         String minutePart = String.format("%02d", endMinute);
 
         return hourPart + ":" + minutePart + amOrPm;

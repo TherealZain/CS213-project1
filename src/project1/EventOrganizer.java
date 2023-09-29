@@ -283,7 +283,7 @@ public class EventOrganizer {
                 return true;
             }
         } catch (IllegalArgumentException e) {
-            // Invalid department, print error message
+            // invalid, results in error
         }
 
         System.out.println("Invalid contact information!");

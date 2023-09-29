@@ -6,7 +6,10 @@ package project1;
  */
 public class Constants {
 
-    // EventOrganizer defined constants
+    // Event class defined constants
+    public static final int MIDNIGHT_HOUR = 0;
+    public static final int NO_REMAINDER = 0;
+
     public static final int NOON_HOUR = 12;
     public static final int HOURS_IN_DAY = 24;
     public static final int MINUTES_IN_HOUR = 60;
@@ -16,9 +19,9 @@ public class Constants {
     public static final int MIN_DURATION = 30;
     public static final int MAX_DURATION = 120;
 
-    // EventCalendar defined constants
+    // EventCalendar class defined constants
     public static final int INITIAL_CAPACITY = 4;
     public static final int GROWTH_INCREMENT = 4;
-    public static final int NOT_FOUND = -1; // also used in EventOrganizer
+    public static final int NOT_FOUND = -1; // also used in Event class
 
 }
