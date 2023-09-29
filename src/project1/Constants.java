@@ -2,6 +2,7 @@ package project1;
 
 /**
  * @author Nicholas Yim
+ * @author Zain Zulfiqar
  */
 public class Constants {
 

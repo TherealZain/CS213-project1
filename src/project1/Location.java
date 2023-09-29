@@ -4,6 +4,7 @@ package project1;
  * Represents location, includes all constants of where an event could take place
  * Hill Center, Allison Road Classroom, Beck Hall, Tillett Hall, Academic Building and Murray Hall
  * @author Zain Zulfiqar
+ * @author Nicholas Yim
  */
 public enum Location {
 
@@ -19,6 +20,11 @@ public enum Location {
     private final String roomNumber;
     private final String campus;
 
+    /**
+     * Constructs Location based on roomNumber and campus
+     * @param roomNumber as String
+     * @param campus as String
+     */
     Location(String roomNumber, String campus){
         this.roomNumber = roomNumber;
         this.campus = campus;
