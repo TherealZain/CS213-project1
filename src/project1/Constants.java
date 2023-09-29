@@ -9,7 +9,6 @@ public class Constants {
     // Event class defined constants
     public static final int MIDNIGHT_HOUR = 0;
     public static final int NO_REMAINDER = 0;
-
     public static final int NOON_HOUR = 12;
     public static final int HOURS_IN_DAY = 24;
     public static final int MINUTES_IN_HOUR = 60;
