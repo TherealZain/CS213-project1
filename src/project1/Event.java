@@ -14,6 +14,8 @@ public class Event implements Comparable<Event> {
     private Contact contact; //include the department name and email
     private int duration; //in minutes
 
+    private static final int EQUAL_CONDITION = 0;
+
     /**
      * Constructs event based on parameters
      * @param date of event
@@ -22,7 +24,8 @@ public class Event implements Comparable<Event> {
      * @param contact of event holder
      * @param duration of how long event will be held
      */
-    public Event(Date date, Timeslot startTime, Location location, Contact contact, int duration) {
+    public Event(Date date, Timeslot startTime, Location location,
+                 Contact contact, int duration) {
         this.date = date;
         this.startTime = startTime;
         this.location = location;
@@ -47,7 +50,8 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Checks if object is an event if so checks if date, timeslot and location are the same
+     * Checks if object is an event if so checks if date, timeslot and
+     *      location are the same
      * @param o object being compared if event
      * @return true if date, timeslot and location are same
      */
@@ -56,9 +60,12 @@ public class Event implements Comparable<Event> {
         if (o instanceof Event) {
             Event other = (Event) o;
 
-            return (date != null ? date.compareTo(other.date) == 0 : other.date == null) &&
-                    (startTime != null ? startTime.equals(other.startTime) : other.startTime == null) &&
-                    (location != null ? location.equals(other.location) : other.location == null);
+            return (date != null ? date.compareTo(other.date) ==
+                    EQUAL_CONDITION : other.date == null) &&
+                    (startTime != null ? startTime.equals(other.startTime) :
+                            other.startTime == null) &&
+                    (location != null ? location.equals(other.location) :
+                            other.location == null);
         }
         return false;
 
@@ -95,15 +102,18 @@ public class Event implements Comparable<Event> {
     @Override
     public String toString(){
         String endTime = getEndTime(this.startTime, this.duration);
-        String startTimeAmPm = convertToAmPm(startTime.getHour(), startTime.getMinute());
-        return "[Event Date: " + date.dateString() + "] " + "[Start: " + startTimeAmPm
-                + "] " + "[End: " + endTime + "] " + "@" + location.name() +
-                " (" + location.getRoomNumber() + ", " + location.getCampus()
-                + ") " + "[Contact: " + contact.getDepartment() + ", " + contact.getEmail() + "]";
+        String startTimeAmPm = convertToAmPm(startTime.getHour(),
+                startTime.getMinute());
+        return "[Event Date: " + date.dateString() + "] " + "[Start: "
+                + startTimeAmPm + "] " + "[End: " + endTime + "] " + "@" +
+                location.name() + " (" + location.getRoomNumber() + ", " +
+                location.getCampus() + ") " + "[Contact: " +
+                contact.getDepartment() + ", " + contact.getEmail() + "]";
     }
 
     /**
-     * Converts 24-hour clock for Timeslot enum to 12-hour clock with correct am/pm format
+     * Converts 24-hour clock for Timeslot enum to 12-hour clock with
+     *      correct am/pm format
      * @param hour of Timeslot as int
      * @param minute of Timeslot as String
      * @return time as String in HH:MMxx format where xx is 'am' or 'pm'
@@ -143,7 +153,9 @@ public class Event implements Comparable<Event> {
         String amOrPm = (endHour < Constants.NOON_HOUR) ? "am" : "pm";
 
         // format time components
-        String hourPart = (endHour % Constants.NOON_HOUR == Constants.NO_REMAINDER) ? "12" : Integer.toString(endHour % Constants.NOON_HOUR);
+        String hourPart = (endHour % Constants.NOON_HOUR ==
+                Constants.NO_REMAINDER) ? "12" : Integer.toString(
+                        endHour % Constants.NOON_HOUR);
         String minutePart = String.format("%02d", endMinute);
 
         return hourPart + ":" + minutePart + amOrPm;

@@ -130,10 +130,12 @@ public class Date implements Comparable<Date>{
             }
             case FEB -> {
                 if (isLeapYear(year)) {
-                    return day >= MIN_DAYS_IN_MONTH && day <= DAYS_IN_FEB_LEAP;
+                    return day >= MIN_DAYS_IN_MONTH && day <=
+                            DAYS_IN_FEB_LEAP;
                 }
                 else {
-                    return day >= MIN_DAYS_IN_MONTH && day <= DAYS_IN_FEB_NON_LEAP;
+                    return day >= MIN_DAYS_IN_MONTH && day <=
+                            DAYS_IN_FEB_NON_LEAP;
                 }
             }
             default -> {
@@ -176,7 +178,8 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2010, 2, 29);
         boolean expectedOutput = false;
         boolean actualOutput= date.isValid();
-        System.out.println("**Test case #1: # of days in Feb. in a non-leap year is 28");
+        System.out.println("**Test case #1: # of days in Feb. in a non-leap " +
+                "year is 28");
         testResult(date, expectedOutput, actualOutput);
     }
     /** Test case #2 */
@@ -184,7 +187,8 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2012, 2, 29);
         boolean expectedOutput = true;
         boolean actualOutput = date.isValid();
-        System.out.println("**Test case #2: # of days in Feb. in a leap year is 29");
+        System.out.println("**Test case #2: # of days in Feb. in a leap " +
+                "year is 29");
         testResult(date, expectedOutput, actualOutput);
     }
     /** Test case #3 */
@@ -206,7 +210,8 @@ public class Date implements Comparable<Date>{
     }
 
     /** Check if a given test case results in PASS or FAIL...*/
-    private static void testResult(Date date, boolean expectedOutput, boolean actualOutput){
+    private static void testResult(Date date, boolean expectedOutput,
+                                   boolean actualOutput){
         System.out.println("Date: " + date.dateString());
         System.out.println("Expected Output: " + expectedOutput);
         System.out.println("Actual Output: " + actualOutput);

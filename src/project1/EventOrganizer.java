@@ -7,7 +7,8 @@ import java.util.Calendar;
 /**
  * Takes user commands relating to scheduling events on the calendar
  * First checks if user command is valid
- * Contains separate functionality for commands starting with A, R, P, PE, PC, PD, and Q
+ * Contains separate functionality for commands starting with
+ *      A, R, P, PE, PC, PD, and Q
  * @author Zain Zulfiqar
  * @author Nicholas Yim
  */
@@ -16,7 +17,8 @@ public class EventOrganizer {
     private EventCalendar calendar;
 
     /**
-     * Instantiates new calendar for event and sets isRunning for true to receive inputs
+     * Instantiates new calendar for event and sets isRunning for
+     *      true to receive inputs
      */
     public EventOrganizer() {
         this.calendar = new EventCalendar();
@@ -45,7 +47,8 @@ public class EventOrganizer {
                     case "PE" -> handlePECommand(tokenizer);
                     case "PC" -> handlePCCommand(tokenizer);
                     case "PD" -> handlePDCommand(tokenizer);
-                    default -> System.out.println(firstToken + " is an invalid command!");
+                    default -> System.out.println(firstToken + " is an " +
+                            "invalid command!");
                 }
 
             }
@@ -110,7 +113,8 @@ public class EventOrganizer {
 
     /**
      * Handles "PE" command whether event calendar is empty or not
-     * Prints entire calendar sorted by event date and start time if calendar is not empty
+     * Prints entire calendar sorted by event date and start time if
+     *      calendar is not empty
      * Prints error message if event calendar is empty
      * @param tokenizer as StringTokenizer
      */
@@ -126,7 +130,8 @@ public class EventOrganizer {
 
     /**
      * Handles "PC" command whether event calendar is empty or not
-     * Prints entire calendar sorted by campus and building if calendar is not empty
+     * Prints entire calendar sorted by campus and building if
+     *      calendar is not empty
      * Prints error message if event calendar is empty
      * @param tokenizer as StringTokenizer
      */
@@ -159,7 +164,8 @@ public class EventOrganizer {
     /**
      * Creates event specific for "A" command (7 total tokens including "A")
      * @param tokenizer as StringTokenizer
-     * @return created event as Event object, null if unable to validate all parameters
+     * @return created event as Event object, null if unable to validate
+     *      all parameters
      */
     private Event createEventForACommand(StringTokenizer tokenizer) {
         String dateString = tokenizer.nextToken();
@@ -214,7 +220,8 @@ public class EventOrganizer {
     }
 
     /**
-     * Checks if date is valid based on 3 conditions: valid calendar date, future date, date within 6 months
+     * Checks if date is valid based on 3 conditions: valid calendar date,
+     *      future date, date within 6 months
      * @param date date of event as Date
      * @param dateString date of event as string
      * @return true if date passes all conditions, false otherwise
@@ -305,7 +312,8 @@ public class EventOrganizer {
 
 
     /**
-     * Checks if duration of event is less than MIN_DURATION and greater than MAX_DURATION
+     * Checks if duration of event is less than MIN_DURATION and
+     *      greater than MAX_DURATION
      * @param duration of event as int
      * @return true if duration is valid, false if invalid
      */
@@ -380,7 +388,8 @@ public class EventOrganizer {
     /**
      * Checks if date difference is more than MAX_BOOKING_MONTHS_AHEAD
      * @param date of event
-     * @return true if date difference is less than MAX_BOOKING_MONTHS_AHEAD, false otherwise
+     * @return true if date difference is less than MAX_BOOKING_MONTHS_AHEAD,
+     *      false otherwise
      */
     private boolean sixMonthDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();
