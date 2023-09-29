@@ -1,7 +1,7 @@
 package project1;
 
 /**
- * Runs project 1 by calling run function in EventOrganizer
+ * Runs project1 by calling run function in EventOrganizer
  * @author Nicholas Yim
  */
 public class RunProject1 {
