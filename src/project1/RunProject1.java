@@ -8,6 +8,7 @@ public class RunProject1 {
 
     /**
      * Driver method that runs the software
+     * @param args command line arguments
      */
     public static void main(String[] args) {
         new EventOrganizer().run();
