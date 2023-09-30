@@ -172,6 +172,8 @@ public class Date implements Comparable<Date>{
         testDaysInFeb_Leap();
         testMonth_OutOfRange();
         testDayInShortMonth_OutOfRange();
+        testDayInLongMonth_InRange();
+        testDayInMonth_GreaterThanOne();
     }
     /** Test case #1 */
     private static void testDaysInFeb_NonLeap(){
@@ -202,12 +204,31 @@ public class Date implements Comparable<Date>{
 
     /** Test case #4 */
     private static void testDayInShortMonth_OutOfRange(){
-        Date date = new Date(2012, 4, 31);
+        Date date = new Date(2023, 11, 31);
         boolean expectedOutput = false;
         boolean actualOutput = date.isValid();
         System.out.println("**Test case #4: # of days in short month is 30");
         testResult(date, expectedOutput, actualOutput);
     }
+
+    /** Test case #5 */
+    private static void testDayInLongMonth_InRange() {
+        Date date = new Date(2023,10,31);
+        boolean expectedOutput = true;
+        boolean actualOutput = date.isValid();
+        System.out.println("**Test case #5: # of days in long month is 31");
+        testResult(date, expectedOutput, actualOutput);
+    }
+
+    /** Test case #6*/
+    private static void testDayInMonth_GreaterThanOne(){
+        Date date = new Date(2023,10,-1);
+        boolean expectedOutput = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case #6: # of days in month is greater than 1");
+        testResult(date, expectedOutput, actualOutput);
+    }
+
 
     /** Check if a given test case results in PASS or FAIL...*/
     private static void testResult(Date date, boolean expectedOutput,
