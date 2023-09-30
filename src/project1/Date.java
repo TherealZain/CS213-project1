@@ -225,7 +225,7 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2023,10,-1);
         boolean expectedOutput = false;
         boolean actualOutput = date.isValid();
-        System.out.println("Test case #6: # of days in month is greater than 1");
+        System.out.println("**Test case #6: # of days in month is greater than 1");
         testResult(date, expectedOutput, actualOutput);
     }
 

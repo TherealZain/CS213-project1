@@ -217,7 +217,7 @@ public class Event implements Comparable<Event> {
         int duration = 30;
         Event event1 = new Event(date, time1, loc, contact1, duration);
         Event event2 = new Event(date, time2, loc, contact2, duration);
-        System.out.println("**Test case #1: Events with different timeslot " +
+        System.out.println("**Test case #3: Events with different timeslot " +
                 "should not be equal");
         boolean expectedOutput = false;
         boolean actualOutput = event1.equals(event2);
