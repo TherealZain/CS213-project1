@@ -35,23 +35,25 @@ public class EventOrganizer {
 
         while (isRunning) {
             String command = scanner.nextLine();
-            if(command.isEmpty()){continue;}
+            if (command.isEmpty()) {
+                continue;
+            }
 
             StringTokenizer tokenizer = new StringTokenizer(command);
             String firstToken = tokenizer.nextToken();
-                switch (firstToken) {
-                    case "Q" -> isRunning = false;
-                    case "A" -> handleACommand(tokenizer);
-                    case "R" -> handleRCommand(tokenizer);
-                    case "P" -> handlePCommand(tokenizer);
-                    case "PE" -> handlePECommand(tokenizer);
-                    case "PC" -> handlePCCommand(tokenizer);
-                    case "PD" -> handlePDCommand(tokenizer);
-                    default -> System.out.println(firstToken + " is an " +
-                            "invalid command!");
-                }
-
+            switch (firstToken) {
+                case "Q" -> isRunning = false;
+                case "A" -> handleACommand(tokenizer);
+                case "R" -> handleRCommand(tokenizer);
+                case "P" -> handlePCommand(tokenizer);
+                case "PE" -> handlePECommand(tokenizer);
+                case "PC" -> handlePCCommand(tokenizer);
+                case "PD" -> handlePDCommand(tokenizer);
+                default -> System.out.println(firstToken + " is an " +
+                        "invalid command!");
             }
+
+        }
 
         System.out.println("Event Organizer terminated");
         scanner.close();
@@ -61,6 +63,7 @@ public class EventOrganizer {
      * Handles "A" command whether event is already on calendar or not
      * Prints success message if event is added to the calendar
      * Prints error message if event is already on the calendar
+     *
      * @param tokenizer as StringTokenizer
      */
     private void handleACommand(StringTokenizer tokenizer) {
@@ -70,7 +73,7 @@ public class EventOrganizer {
             System.out.println("The event is already on the calendar.");
             return;
         }
-        if(event == null){
+        if (event == null) {
             return;
         }
         calendar.add(event);
@@ -81,11 +84,12 @@ public class EventOrganizer {
      * Handles "R" command whether event is in calendar or not
      * Prints success message if event is removed from calendar
      * Prints error message if event is not in the calendar
+     *
      * @param tokenizer as StringTokenizer
      */
     private void handleRCommand(StringTokenizer tokenizer) {
         Event event = createEventForRCommand(tokenizer);
-        if(event == null){
+        if (event == null) {
             return;
         }
         if ((eventNotOnCalendar(event))) {
@@ -101,12 +105,13 @@ public class EventOrganizer {
      * Handles "P" command whether event calendar is empty or not
      * Prints entire calendar as is if calendar is not empty
      * Prints error message if event calendar is empty
+     *
      * @param tokenizer as StringTokenizer
      */
     private void handlePCommand(StringTokenizer tokenizer) {
-        if(calendar.isEmpty()){
+        if (calendar.isEmpty()) {
             System.out.println("Event calendar is empty!");
-        return;
+            return;
         }
         System.out.println("* Event calendar *");
         calendar.print();
@@ -118,10 +123,11 @@ public class EventOrganizer {
      * Prints entire calendar sorted by event date and start time if
      * calendar is not empty
      * Prints error message if event calendar is empty
+     *
      * @param tokenizer as StringTokenizer
      */
     private void handlePECommand(StringTokenizer tokenizer) {
-        if(calendar.isEmpty()){
+        if (calendar.isEmpty()) {
             System.out.println("Event calendar is empty!");
             return;
         }
@@ -135,10 +141,11 @@ public class EventOrganizer {
      * Prints entire calendar sorted by campus and building if
      * calendar is not empty
      * Prints error message if event calendar is empty
+     *
      * @param tokenizer as StringTokenizer
      */
     private void handlePCCommand(StringTokenizer tokenizer) {
-        if(calendar.isEmpty()){
+        if (calendar.isEmpty()) {
             System.out.println("Event calendar is empty!");
             return;
         }
@@ -151,10 +158,11 @@ public class EventOrganizer {
      * Handles "PD" command whether event calendar is empty or not
      * Prints entire calendar sorted by department if calendar is not empty
      * Prints error message if event calendar is empty
+     *
      * @param tokenizer as StringTokenizer
      */
     private void handlePDCommand(StringTokenizer tokenizer) {
-        if(calendar.isEmpty()){
+        if (calendar.isEmpty()) {
             System.out.println("Event calendar is empty!");
             return;
         }
@@ -165,6 +173,7 @@ public class EventOrganizer {
 
     /**
      * Creates event specific for "A" command (7 total tokens including "A")
+     *
      * @param tokenizer as StringTokenizer
      * @return created event as Event object, null if unable to validate
      * all parameters
@@ -193,6 +202,7 @@ public class EventOrganizer {
 
     /**
      * Creates event specific for "R" command (5 total tokens including "R")
+     *
      * @param tokenizer as StringTokenizer
      * @return created event as Event object, null if unable to validate parameters
      */
@@ -224,12 +234,13 @@ public class EventOrganizer {
     /**
      * Checks if date is valid based on 3 conditions: valid calendar date,
      * future date, date within 6 months
-     * @param date date of event as Date
+     *
+     * @param date       date of event as Date
      * @param dateString date of event as string
      * @return true if date passes all conditions, false otherwise
      */
     private boolean isValidDate(Date date, String dateString) {
-        if(!(date.isValid())){
+        if (!(date.isValid())) {
             System.out.println(dateString + ": Invalid calendar date!");
             return false;
         }
@@ -245,6 +256,7 @@ public class EventOrganizer {
 
     /**
      * Parses date string from command line and converts to Date object
+     *
      * @param dateString date of event as String
      * @return created date as Date object
      */
@@ -262,6 +274,7 @@ public class EventOrganizer {
 
     /**
      * Checks if timeslot input is valid based on Timeslot enum
+     *
      * @param timeslotString timeslot as String
      * @return true if String is a valid timeslot, false if invalid
      */
@@ -277,6 +290,7 @@ public class EventOrganizer {
 
     /**
      * Checks if location input is valid based on Location enum
+     *
      * @param locationString location as String
      * @return true if String is a valid location, false if invalid
      */
@@ -292,8 +306,9 @@ public class EventOrganizer {
 
     /**
      * Checks if contact is valid based on department enum and email format
+     *
      * @param departmentString department as String
-     * @param emailString email as String
+     * @param emailString      email as String
      * @return true if String is a valid location, false if invalid
      */
     public static boolean isValidContact(String departmentString, String emailString) {
@@ -316,10 +331,11 @@ public class EventOrganizer {
     /**
      * Checks if duration of event is less than MIN_DURATION and
      * greater than MAX_DURATION
+     *
      * @param duration of event as int
      * @return true if duration is valid, false if invalid
      */
-    private boolean isValidDuration(int duration){
+    private boolean isValidDuration(int duration) {
         if (duration < Constants.MIN_DURATION || duration > Constants.MAX_DURATION) {
             System.out.println("Event duration must be at least " +
                     "30 minutes and at most 120 minutes");
@@ -330,33 +346,45 @@ public class EventOrganizer {
 
     /**
      * Validates all parameters for event
-     * @param dateString date as string
-     * @param startTimeString start time as string
-     * @param locationString location as string
+     *
+     * @param dateString       date as string
+     * @param startTimeString  start time as string
+     * @param locationString   location as string
      * @param departmentString department as string
-     * @param emailString email as string
-     * @param date date of event
-     * @param duration duration of event
+     * @param emailString      email as string
+     * @param date             date of event
+     * @param duration         duration of event
      * @return true if all parameters are valid, false otherwise
      */
     private boolean validateAllParams(String dateString, String startTimeString,
-    String locationString, String departmentString, String emailString, Date date, int duration){
-        if(!(isValidDate(date, dateString))){return false;}
-        if(!(isValidTimeslot(startTimeString))){return false;}
-        if(!(isValidLocation(locationString))){return false;}
-        if(!(isValidContact(departmentString, emailString))){return false;}
-        if(!(isValidDuration(duration))){return false;}
+                                      String locationString, String departmentString, String emailString, Date date, int duration) {
+        if (!(isValidDate(date, dateString))) {
+            return false;
+        }
+        if (!(isValidTimeslot(startTimeString))) {
+            return false;
+        }
+        if (!(isValidLocation(locationString))) {
+            return false;
+        }
+        if (!(isValidContact(departmentString, emailString))) {
+            return false;
+        }
+        if (!(isValidDuration(duration))) {
+            return false;
+        }
 
         return true;
     }
 
     /**
      * Checks if event is not on calendar already
+     *
      * @param event user is attempting to schedule
      * @return true if event is not on calendar, false if it is
      */
     private boolean eventNotOnCalendar(Event event) {
-        if (calendar.contains(event)){
+        if (calendar.contains(event)) {
             return false;
         }
         return true;
@@ -364,6 +392,7 @@ public class EventOrganizer {
 
     /**
      * Checks if date user is inputting is in the future
+     *
      * @param date of event
      * @return true if date is in the future, false otherwise
      */
@@ -389,6 +418,7 @@ public class EventOrganizer {
 
     /**
      * Checks if date difference is more than MAX_BOOKING_MONTHS_AHEAD
+     *
      * @param date of event
      * @return true if date difference is less than MAX_BOOKING_MONTHS_AHEAD,
      * false otherwise
@@ -396,21 +426,24 @@ public class EventOrganizer {
     private boolean sixMonthDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
-        int currentMonth = calendar.get(Calendar.MONTH) + Constants.MONTH_STANDARDIZER;
+        int currentMonth = calendar.get(Calendar.MONTH) + 1;
         int currentDay = calendar.get(Calendar.DATE);
 
-        int monthsDifference = (date.getYear() - currentYear) * Constants.MONTHS_IN_YEAR +
-                (date.getMonth() - currentMonth);
+        int monthsDifference = (date.getYear() - currentYear) * 12 + (date.getMonth() - currentMonth);
 
-        if (monthsDifference < Constants.MAX_BOOKING_MONTHS_AHEAD) {
+        if (monthsDifference < 6) {
             return true;
-        } else if (monthsDifference == Constants.MAX_BOOKING_MONTHS_AHEAD) {
-            if (date.getMonth() == currentMonth) {
-                return date.getDay() >= currentDay;
+        } else if (monthsDifference == 6) {
+            if (date.getMonth() != currentMonth) {
+                return date.getDay() < currentDay;
+            } else {
+                return true;
             }
-            return true;
         }
         return false;
     }
-
 }
+
+
+
+
