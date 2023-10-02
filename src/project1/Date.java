@@ -174,6 +174,7 @@ public class Date implements Comparable<Date>{
         testDayInShortMonth_OutOfRange();
         testDayInLongMonth_InRange();
         testDayInMonth_GreaterThanOne();
+        testDayInLongMonth_InRange2();
     }
     /** Test case #1 */
     private static void testDaysInFeb_NonLeap(){
@@ -207,7 +208,8 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2023, 11, 31);
         boolean expectedOutput = false;
         boolean actualOutput = date.isValid();
-        System.out.println("**Test case #4: # of days in short month is 30");
+        System.out.println("**Test case #4: # of days in short month " +
+                "(November) is exactly 30");
         testResult(date, expectedOutput, actualOutput);
     }
 
@@ -216,7 +218,8 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2023,10,31);
         boolean expectedOutput = true;
         boolean actualOutput = date.isValid();
-        System.out.println("**Test case #5: # of days in long month is 31");
+        System.out.println("**Test case #5: # of days in long month " +
+                "(October) is 31");
         testResult(date, expectedOutput, actualOutput);
     }
 
@@ -225,7 +228,18 @@ public class Date implements Comparable<Date>{
         Date date = new Date(2023,10,-1);
         boolean expectedOutput = false;
         boolean actualOutput = date.isValid();
-        System.out.println("**Test case #6: # of days in month is greater than 1");
+        System.out.println("**Test case #6: # of days in month is at " +
+                "least 1");
+        testResult(date, expectedOutput, actualOutput);
+    }
+
+    /** Test case #7*/
+    private static void testDayInLongMonth_InRange2(){
+        Date date = new Date(2023,7,34);
+        boolean expectedOutput = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("**Test case #7: # of days in long month " +
+                "(July) is exactly 31");
         testResult(date, expectedOutput, actualOutput);
     }
 
