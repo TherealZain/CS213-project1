@@ -426,14 +426,14 @@ public class EventOrganizer {
     private boolean sixMonthDateCheck(Date date) {
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
-        int currentMonth = calendar.get(Calendar.MONTH) + 1;
+        int currentMonth = calendar.get(Calendar.MONTH) + Constants.MONTH_STANDARDIZER;
         int currentDay = calendar.get(Calendar.DATE);
 
-        int monthsDifference = (date.getYear() - currentYear) * 12 + (date.getMonth() - currentMonth);
+        int monthsDifference = (date.getYear() - currentYear) * Constants.MONTHS_IN_YEAR + (date.getMonth() - currentMonth);
 
-        if (monthsDifference < 6) {
+        if (monthsDifference < Constants.MAX_BOOKING_MONTHS_AHEAD) {
             return true;
-        } else if (monthsDifference == 6) {
+        } else if (monthsDifference == Constants.MAX_BOOKING_MONTHS_AHEAD) {
             if (date.getMonth() != currentMonth) {
                 return date.getDay() < currentDay;
             } else {
